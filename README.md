@@ -185,7 +185,9 @@ docfast-js ./api/api-doc.yaml ./README.md
       |**message**|*string*| |
 
    - ### Data
-      **Tipo:** *string*
+      **Tipo:** *enum*
+      **Datos:**  *XK*, *YX*, *ZX*
+      
 
 
 <!-- /docfast-js-api-doc -->

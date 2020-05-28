@@ -131,7 +131,7 @@ module.exports = function (api) {
                                                         return [
                                                             [C(code), " ", response.description],
                                                             response.data ? List({}, [response.data.json ? () => {
-                                                                var item = getRef(response.data.json.ref) || { ref: response.data.json };
+                                                                var item = getRef(response.data.json.ref) || {name:"json", ref: response.data.json };
                                                                 var result = {}
                                                                 jsonExample(api, item.name, item.ref, result);
                                                                 var data = result[item.name];
@@ -163,22 +163,26 @@ module.exports = function (api) {
                         models.map(modelName => {
                             var model = api.models[modelName];
                             var n = modelName
-                            extend(api, model)
+                           
 
                             return function objectProp(name, obj) {
 
                                 model = obj ? obj : model;
                                 n = name ? name : n;
-
+                                
+                                                                
                                 return [
                                     Title({ h: 3 }, n),
                                     model.type === 'object' ? () => {
                                         var props = Object.keys(model.props);
 
                                         return [
-                                            props.map((propName, k) => {
+                                            props.map((propName, k) => {                                                
                                                 var prop = model.props[propName];
+                                                if(!prop)
+                                                    console.log(prop);
                                                 if (prop) {
+                                                                                                    
                                                     if (prop.type === 'object')
                                                         return List({}, [objectProp(propName, prop)]);
                                                     if (k == 0)
@@ -191,7 +195,10 @@ module.exports = function (api) {
                                                 }
                                             })
                                         ]
-                                    } : () => P({}, [B(lang.type + ":"), " ", L(model.type)])
+                                    } : () => P({}, [
+                                        B(lang.type + ":"), " ", L(model.enum?"enum":model.type),Br,
+                                        model.enum instanceof Array?[B(lang.data+":")," ",model.enum.map((v,k)=>[k?",":null," ",L(v)]),Br]:null
+                                    ])
                                 ]
                             }
                         })
