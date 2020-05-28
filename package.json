@@ -9,9 +9,10 @@
   "bin": {
     "docfast-js": "./index.js"
   },
+  "publishConfig": { "registry": "https://npm.pkg.github.com/" },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/calimpio/docfast-js.git"
+    "url": "git+https://github.com/code-cy/docfast-js.git"
   },
   "keywords": [
     "documentation",
