@@ -64,13 +64,16 @@ docfast-js ./api/api-doc.yaml ./README.md
       **Tags:** [User](https://github.com/code-cy/docfast-js#user) [API](https://github.com/code-cy/docfast-js#api)
 
       - **Parámetros**
+         
 
          - **Cabeceras**
+            
             |Nombre|Tipo|
             |----|----|
             |**API_KEY**|*string*|
 
          - **Datos**
+            
             |Nombre|Tipo|Descripción|
             |----|----|----|----|
             |**email**|*string*|Correo del usuario.|requrido|
@@ -79,28 +82,35 @@ docfast-js ./api/api-doc.yaml ./README.md
 
          - **En: body, query**
       - **Respuesta**
+         
 
          - `201` Usuraio creado
+            
 
             - `application/json`
+               
                **Ejemplo:**
                ```json
                { "token": "akslkdláskldkalskdlkasld´kaslkd´laskdasdkasjdklñjaksjdkasdjkañsjdlkj" }
                ```
          - `401` `API_KEY` no es valida.
+            
 
    - ##### `post` /auth/login
       **Descripción:'** Iniciar sesion como Usuario.
       **Tags:** [User](https://github.com/code-cy/docfast-js#user) [API](https://github.com/code-cy/docfast-js#api)
 
       - **Parámetros**
+         
 
          - **Cabeceras**
+            
             |Nombre|Tipo|
             |----|----|
             |**API_KEY**|*string*|
 
          - **Datos**
+            
             |Nombre|Tipo|Descripción|
             |----|----|----|----|
             |**email**|*string*|Correo del usuario.|Requerido.|
@@ -108,10 +118,13 @@ docfast-js ./api/api-doc.yaml ./README.md
 
          - **En: body, query**
       - **Respuesta**
+         
 
          - `201` Usuario a iniciado sesion.
+            
 
             - `application/json`
+               
                **Ejemplo:**
                ```json
                {
@@ -120,31 +133,39 @@ docfast-js ./api/api-doc.yaml ./README.md
                }
                ```
          - `401` `API_KEY` no es valida.
+            
 
    - ##### `get` /user
       **Descripción:'** Obtener informacion del usuario y la compañia.
       **Tags:** [User](https://github.com/code-cy/docfast-js#user) [API](https://github.com/code-cy/docfast-js#api)
 
       - **Parámetros**
+         
 
          - **Cabeceras**
+            
             |Nombre|Tipo|
             |----|----|
             |**Authorization**|*string*|
             |**API_KEY**|*string*|
 
       - **Respuesta**
+         
 
          - `200` Usuario y su compañia.
+            
 
             - `application/json`
+               
                **Ejemplo:**
                ```json
                { "id": 21321, "email": "me@example.ocm", "create_at": "20-254-000" }
                ```
          - `401` `API_KEY` no es valida.
+            
 
          - `421` El token de sesion a expirado.
+            
 
 
 <!-- /docfast-js-api-doc -->
