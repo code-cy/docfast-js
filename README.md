@@ -74,7 +74,7 @@ docfast-js ./api/api-doc.yaml ./README.md
 
          - **Datos**
             
-            |Nombre|Tipo|Descripción|
+            |Nombre|Tipo|Descripción|Reglas|
             |----|----|----|----|
             |**email**|*string*|Correo del usuario.|requrido|
             |**password**|*string*|Contraseña del usuario.|requrido|
@@ -111,7 +111,7 @@ docfast-js ./api/api-doc.yaml ./README.md
 
          - **Datos**
             
-            |Nombre|Tipo|Descripción|
+            |Nombre|Tipo|Descripción|Reglas|
             |----|----|----|----|
             |**email**|*string*|Correo del usuario.|Requerido.|
             |**password**|*string*|Contraseña del usuario.|Requerido.|

@@ -91,7 +91,7 @@ module.exports = function (api) {
                                                 ] : null,
                                                 route.request.data ? [
                                                     B(lang.data),
-                                                    TableHeader({}, [lang.name, lang.type, lang.description, langs.rules]),
+                                                    TableHeader({}, [lang.name, lang.type, lang.description, lang.rules]),
                                                     Object.keys(route.request.data)
                                                         .map(data => {
                                                             var itemData = route.request.data[data];
