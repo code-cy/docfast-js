@@ -1,6 +1,6 @@
 {
   "name": "docfast-js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A fast documentations for everything kinds of proyects.",
   "main": "index.js",
   "scripts": {
