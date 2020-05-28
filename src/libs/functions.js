@@ -17,7 +17,7 @@ function jsonExample(rel,name, obj, result) {
                     if (typeof obj.items.ref === 'string') {
                         var item = getRefRel(rel,obj.items.ref);
                         if (item.ref instanceof Array) {
-                            result[name] = item.ref;
+                            result[name] = item.ref;                            
                         }
                     }
                 } else if (obj.items instanceof Array) {

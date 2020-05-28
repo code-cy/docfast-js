@@ -21,17 +21,8 @@ paths:
         post:
             extend: types.UserRoute
             description:  Registrar nuevo usuario.            
-            request:                                 
-                in: [ body,  query ]                               
-                data: 
-                    email: 
-                        type:  string 
-                        description:  Correo del usuario. 
-                        rules:  requrido                     
-                    password: 
-                        type:  string 
-                        description:  Contraseña del usuario. 
-                        rules:  requrido                     
+            request:                                        
+                data:                                         
                     passwordConfirmed: 
                         type:  string 
                         description:  Contraseña confirmada del usuario. 
@@ -45,19 +36,7 @@ paths:
     /auth/login :
         post:
             extend: types.UserRoute
-            description: Iniciar sesion como Usuario.           
-            request:                           
-                in: [ body, query ]
-                data:
-                    email:
-                        type: string 
-                        rules: Requerido. 
-                        description: Correo del usuario. 
-                    
-                    password:
-                        type: string 
-                        rules: Requerido. 
-                        description: Contraseña del usuario.       
+            description: Iniciar sesion como Usuario.                      
             response:                
                 201:
                     description: Usuario a iniciado sesion. 
@@ -85,7 +64,8 @@ types:
                 API_KEY: string
         response:
             401:
-                description: "`API_KEY` no es valida."               
+                description: "`API_KEY` no es valida."
+                   
     Auth:
         extend: types.ApiRoute
         auth: true        
@@ -98,6 +78,17 @@ types:
     UserRoute:
         extend: types.ApiRoute
         tags: [User, API]
+        request:
+            in: [ body, query ]
+            data:
+                email:
+                    type: string 
+                    rules: Requerido. 
+                    description: Correo del usuario.                    
+                password:
+                    type: string 
+                    rules: Requerido. 
+                    description: Contraseña del usuario.    
 
     UserAuth:
         extend: types.Auth        
@@ -149,17 +140,15 @@ models:
                     passwordConfirmed:
                         type: string  
                         example: required 
-                    companyName:  
-                        type: string
-                        example: required 
-                    companyKind: 
-                        type: string
-                        exaple: required 
+                    
     Unauthorizate:
         type: object
         props:
             message:
                 type: string
-                example: You are unhotorizate to do this. 
+                example: You are unhotorizate to do this.
+    Data:
+        type: string
+        enum: [XK, YX, ZX] 
     
 

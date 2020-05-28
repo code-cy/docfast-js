@@ -14,7 +14,8 @@ module.exports ={
         type: "Tipo",
         rules: "Reglas",
         in: "En",
-        example: "Ejemplo"
+        example: "Ejemplo",
+        models: "Modelos"
     },
     en:{
         method: "Method",
@@ -31,6 +32,7 @@ module.exports ={
         type: "Type",
         rules: "Rules",
         in: "In",
-        example: "Example"
+        example: "Example",
+        models: "Models",
     }
 }

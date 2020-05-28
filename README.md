@@ -52,65 +52,55 @@ docfast-js ./api/api-doc.yaml ./README.md
    Operar datos del Usuario.
    |Método|Ruta|Auth?|Descripción|
    |----|----|----|----|
-   |**post**|[/auth/register](https://github.com/code-cy/docfast-js#post-authregister)|No|Registrar nuevo usuario.|
-   |**post**|[/auth/login](https://github.com/code-cy/docfast-js#post-authlogin)|No|Iniciar sesion como Usuario.|
-   |**get**|[/user](https://github.com/code-cy/docfast-js#get-user)|Si|Obtener informacion del usuario y la compañia.|
+   |**post**|[/auth/register](#post-authregister)|No|Registrar nuevo usuario.|
+   |**post**|[/auth/login](#post-authlogin)|No|Iniciar sesion como Usuario.|
+   |**get**|[/user](#get-user)|Si|Obtener informacion del usuario y la compañia.|
 
 
 - ## Rutas
 
    - ##### `post` /auth/register
       **Descripción:'** Registrar nuevo usuario.
-      **Tags:** [User](https://github.com/code-cy/docfast-js#user) [API](https://github.com/code-cy/docfast-js#api)
+      **Tags:** [User](#user) [API](#api)
 
       - **Parámetros**
-         
 
          - **Cabeceras**
-            
             |Nombre|Tipo|
             |----|----|
             |**API_KEY**|*string*|
 
          - **Datos**
-            
             |Nombre|Tipo|Descripción|Reglas|
             |----|----|----|----|
-            |**email**|*string*|Correo del usuario.|requrido|
-            |**password**|*string*|Contraseña del usuario.|requrido|
+            |**email**|*string*|Correo del usuario.|Requerido.|
+            |**password**|*string*|Contraseña del usuario.|Requerido.|
             |**passwordConfirmed**|*string*|Contraseña confirmada del usuario.|requrido|
 
          - **En: body, query**
       - **Respuesta**
-         
 
          - `201` Usuraio creado
-            
 
             - `application/json`
-               
                **Ejemplo:**
                ```json
                { "token": "akslkdláskldkalskdlkasld´kaslkd´laskdasdkasjdklñjaksjdkasdjkañsjdlkj" }
                ```
          - `401` `API_KEY` no es valida.
-            
 
    - ##### `post` /auth/login
       **Descripción:'** Iniciar sesion como Usuario.
-      **Tags:** [User](https://github.com/code-cy/docfast-js#user) [API](https://github.com/code-cy/docfast-js#api)
+      **Tags:** [User](#user) [API](#api)
 
       - **Parámetros**
-         
 
          - **Cabeceras**
-            
             |Nombre|Tipo|
             |----|----|
             |**API_KEY**|*string*|
 
          - **Datos**
-            
             |Nombre|Tipo|Descripción|Reglas|
             |----|----|----|----|
             |**email**|*string*|Correo del usuario.|Requerido.|
@@ -118,13 +108,10 @@ docfast-js ./api/api-doc.yaml ./README.md
 
          - **En: body, query**
       - **Respuesta**
-         
 
          - `201` Usuario a iniciado sesion.
-            
 
             - `application/json`
-               
                **Ejemplo:**
                ```json
                {
@@ -133,39 +120,72 @@ docfast-js ./api/api-doc.yaml ./README.md
                }
                ```
          - `401` `API_KEY` no es valida.
-            
 
    - ##### `get` /user
       **Descripción:'** Obtener informacion del usuario y la compañia.
-      **Tags:** [User](https://github.com/code-cy/docfast-js#user) [API](https://github.com/code-cy/docfast-js#api)
+      **Tags:** [User](#user) [API](#api)
 
       - **Parámetros**
-         
 
          - **Cabeceras**
-            
             |Nombre|Tipo|
             |----|----|
-            |**Authorization**|*string*|
             |**API_KEY**|*string*|
+            |**Authorization**|*string*|
 
       - **Respuesta**
-         
 
          - `200` Usuario y su compañia.
-            
 
             - `application/json`
-               
                **Ejemplo:**
                ```json
                { "id": 21321, "email": "me@example.ocm", "create_at": "20-254-000" }
                ```
          - `401` `API_KEY` no es valida.
-            
 
          - `421` El token de sesion a expirado.
-            
+
+- ## Modelos
+
+   - ### UserStoreResponse
+      **Tipo:** *object*
+      |Nombre|Tipo|Descripción|
+      |----|----|----|
+      |**token**|*string*| |
+
+   - ### UserLoginResponse
+
+      - ### user
+         **Tipo:** *object*
+         |Nombre|Tipo|Descripción|
+         |----|----|----|
+         |**id**|*number*| |
+         |**email**|*string*| |
+         |**create_at**|*string*| |
+
+   - ### InvalidResponse
+      **Tipo:** *object*
+      |Nombre|Tipo|Descripción|
+      |----|----|----|
+      |**message**|*string*| |
+
+      - ### errors
+         **Tipo:** *object*
+         |Nombre|Tipo|Descripción|
+         |----|----|----|
+         |**mail**|*string*| |
+         |**password**|*string*| |
+         |**passwordConfirmed**|*string*| |
+
+   - ### Unauthorizate
+      **Tipo:** *object*
+      |Nombre|Tipo|Descripción|
+      |----|----|----|
+      |**message**|*string*| |
+
+   - ### Data
+      **Tipo:** *string*
 
 
 <!-- /docfast-js-api-doc -->
