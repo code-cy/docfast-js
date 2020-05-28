@@ -14,8 +14,17 @@ docfast-js <source.yaml> <target>
 docfast-js ./api/api-doc.yaml ./README.md
 
 ```
-- ##  Formats:
-    - [api-doc]()  
+
+- ## Sources Formats:
+    - [api-doc](https://github.com/code-cy/docfast-js/blob/master/formats/api-doc.yaml)  
+
+- ## Targets:
+    - ### Markdown
+        - ```markdown
+            - Documentation:
+            <!-- docfast-js-{format} -->
+            <!-- /docfast-js-{format} -->
+            ```
 
 <!-- docfast-js-api-doc -->
 # API Documentation Example format: api-doc
