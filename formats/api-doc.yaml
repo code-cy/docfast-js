@@ -1,0 +1,165 @@
+#headers
+format: api-doc
+version: 1.0.0
+lang: es
+
+
+#document
+title: "API Documentation Example format: api-doc"
+hostDocumentation: https://github.com/code-cy/docfast-js
+host:  http://host.com 
+baseUrl:  /api 
+
+tags:      
+    User:
+        description: Operar datos del Usuario.  
+    
+     
+
+paths:                                
+    /auth/register : 
+        post:
+            extend: types.UserRoute
+            description:  Registrar nuevo usuario.            
+            request:                                 
+                in: [ body,  query ]                               
+                data: 
+                    email: 
+                        type:  string 
+                        description:  Correo del usuario. 
+                        rules:  requrido                     
+                    password: 
+                        type:  string 
+                        description:  Contraseña del usuario. 
+                        rules:  requrido                     
+                    passwordConfirmed: 
+                        type:  string 
+                        description:  Contraseña confirmada del usuario. 
+                        rules:  requrido                            
+            response:               
+                201:
+                    description: Usuraio creado 
+                    data:
+                        json:
+                            ref: models.UserStoreResponse                   
+    /auth/login :
+        post:
+            extend: types.UserRoute
+            description: Iniciar sesion como Usuario.           
+            request:                           
+                in: [ body, query ]
+                data:
+                    email:
+                        type: string 
+                        rules: Requerido. 
+                        description: Correo del usuario. 
+                    
+                    password:
+                        type: string 
+                        rules: Requerido. 
+                        description: Contraseña del usuario.       
+            response:                
+                201:
+                    description: Usuario a iniciado sesion. 
+                    data:
+                        json:
+                            ref: models.UserLoginResponse             
+    /user:
+        get:
+            extend: types.UserAuth            
+            description: Obtener informacion del usuario y la compañia.                    
+            response:
+                200:
+                    description: Usuario y su compañia.
+                    data:
+                        json:
+                            ref: models.UserLoginResponse.props.user
+    
+                    
+            
+
+types:
+    ApiRoute:
+        request:
+            headers:
+                API_KEY: string
+        response:
+            401:
+                description: "`API_KEY` no es valida."               
+    Auth:
+        extend: types.ApiRoute
+        auth: true        
+        request:
+            headers:
+                Authorization: string
+        response:
+            421:
+                description: El token de sesion a expirado.                
+    UserRoute:
+        extend: types.ApiRoute
+        tags: [User, API]
+
+    UserAuth:
+        extend: types.Auth        
+        tags: [User, API]   
+        
+    
+        
+
+models:
+    UserStoreResponse:
+        type: object            
+        props:
+            token:
+                type: string 
+                example: akslkdláskldkalskdlkasld´kaslkd´laskdasdkasjdklñjaksjdkasdjkañsjdlkj
+
+    UserLoginResponse:
+        type: object
+        props:
+            user:
+                type: object 
+                props:
+                    id: 
+                        type: number
+                        example: 21321
+                    email: 
+                        type: string
+                        example: me@example.ocm 
+                    create_at: 
+                        type: string 
+                        example: 20-254-000                            
+            token:
+                ref: models.UserStoreResponse.props.token
+
+    InvalidResponse:
+        type: object
+        props:
+            message:
+                type: string            
+            errors:
+                type: object 
+                props:
+                    mail:
+                        type: string
+                        example: required 
+                    password:  
+                        type: string
+                        example: required 
+                    passwordConfirmed:
+                        type: string  
+                        example: required 
+                    companyName:  
+                        type: string
+                        example: required 
+                    companyKind: 
+                        type: string
+                        exaple: required 
+    Unauthorizate:
+        type: object
+        props:
+            message:
+                type: string
+                example: You are unhotorizate to do this. 
+    
+

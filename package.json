@@ -1,0 +1,39 @@
+{
+  "name": "docfast-js",
+  "version": "1.0.0",
+  "description": "A fast documentations for everything kinds of proyects.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "docfast-js": "./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/calimpio/docfast-js.git"
+  },
+  "keywords": [
+    "documentation",
+    "markdown",
+    "yaml",
+    "api",
+    "wiki",
+    "docs",
+    "readme"
+  ],
+  "author": "calimpio",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/calimpio/docfast-js/issues"
+  },
+  "homepage": "https://github.com/calimpio/docfast-js#readme",
+  "dependencies": {
+    "fs-extra": "^9.0.0",
+    "js-yaml": "^3.14.0",
+    "json-beautify": "^1.1.1",
+    "markdown-js-template": "github:code-cy/markdown-js-template",
+    "meow": "^7.0.1",
+    "xml-comment-api": "^1.0.1"
+  }
+}
