@@ -90,7 +90,7 @@ module.exports = function (api) {
                                                         .map(header => TableData({}, [B(header), L(route.request.headers[header])]))
                                                 ] : null,
                                                 route.request.data ? [
-                                                    B(lang.data),
+                                                    P({},[B(lang.data)]),
                                                     TableHeader({}, [lang.name, lang.type, lang.description, langs.rules]),
                                                     Object.keys(route.request.data)
                                                         .map(data => {
@@ -135,7 +135,7 @@ module.exports = function (api) {
                                                                 if (json)
                                                                     return [
                                                                         C("application/json"),
-                                                                        P({}, [B("Ejemplo:")]),
+                                                                        P({}, [B(`${lang.example}:`)]),
                                                                         Code({ lang: "json" }, json),
                                                                     ]
                                                             } : null]) : null

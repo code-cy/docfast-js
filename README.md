@@ -2,7 +2,7 @@
 
 Fast documentations.
 
-- ## Usage
+- ## Usage as Command Line
 ``` bash
 #install
 npm i -g code-cy/docfast-js
@@ -14,7 +14,6 @@ docfast-js <source.yaml> <target>
 docfast-js ./api/api-doc.yaml ./README.md
 
 ```
-
 - ## Sources Formats:
     - [api-doc](https://github.com/code-cy/docfast-js/blob/master/formats/api-doc.yaml)  
 
@@ -25,7 +24,27 @@ docfast-js ./api/api-doc.yaml ./README.md
             <!-- docfast-js-{format} -->
             <!-- /docfast-js-{format} -->
             ```
+- ## Usage as Dependecy
+```bash
+    npm i code-cy/docfast-js
 
+```
+    - in js:
+
+        ```js
+            const {
+                langs,
+                functions,
+                markdown_template:{
+                    Title,
+                    Link,
+                    //code-cy/markdown-js-template
+                },
+                formats:{
+                    api_doc
+                }
+            } = require('docfast')
+        ```
 <!-- docfast-js-api-doc -->
 # API Documentation Example format: api-doc
 

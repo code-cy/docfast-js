@@ -14,5 +14,6 @@ module.exports ={
         type: "Tipo",
         rules: "Reglas",
         in: "En",
+        example: "Ejemplo"
     }
 }
