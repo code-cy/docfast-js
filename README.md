@@ -25,10 +25,10 @@ docfast-js ./api/api-doc.yaml ./README.md
             <!-- /docfast-js-{format} -->
             ```
 - ## Usage as Dependecy
-```bash
-    npm i code-cy/docfast-js
+    ```bash
+        npm i code-cy/docfast-js
 
-```
+    ```
     - in js:
 
         ```js

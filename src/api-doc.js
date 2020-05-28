@@ -90,7 +90,7 @@ module.exports = function (api) {
                                                         .map(header => TableData({}, [B(header), L(route.request.headers[header])]))
                                                 ] : null,
                                                 route.request.data ? [
-                                                    P({},[B(lang.data)]),
+                                                    B(lang.data),
                                                     TableHeader({}, [lang.name, lang.type, lang.description, langs.rules]),
                                                     Object.keys(route.request.data)
                                                         .map(data => {
