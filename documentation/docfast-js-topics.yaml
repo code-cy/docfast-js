@@ -27,6 +27,7 @@ topics:
           "Sources Format":
             links:
               "api-doc": https://github.com/code-cy/docfast-js/blob/master/formats/api-doc.yaml
+              "topics": https://github.com/code-cy/docfast-js/blob/master/formats/api-doc.yaml
           "Targets":
             topics:
               "Markdown":
