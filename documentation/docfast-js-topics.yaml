@@ -48,6 +48,8 @@ topics:
           content: "
           npm i code-cy/docfast-js
           "
+  "API Documentation Example format: api-doc":
+    off: true
 
 
     

@@ -15,6 +15,8 @@
 
       - [Usage as Dependency](#usage-as-dependency)
 
+   - [API Documentation Example format: api-doc](#api-documentation-example-format-api-doc)
+
 
 - #  Install
    Has tow ways to implements
