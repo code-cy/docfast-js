@@ -31,7 +31,7 @@
       ```
       - ###  Sources Format
          
-         [api-doc](https://github.com/code-cy/docfast-js/blob/master/formats/api-doc.yaml) 
+         [api-doc](https://github.com/code-cy/docfast-js/blob/master/formats/api-doc.yaml) [topics](https://github.com/code-cy/docfast-js/blob/master/documentation/docfast-js-topics.yaml) 
 
       - ###  Targets
          
@@ -41,8 +41,8 @@
             ```markdown
                                  
             - Documentation:
-            <!-- docfast-js-{format} -->
-            <!-- /docfast-js-{format} -->
+            <!-- docfast-js-{format}-{my-tag} -->
+            <!-- /docfast-js-{format}-{my-tag} -->
             
             ```
    - ###  Usage as Dependency
