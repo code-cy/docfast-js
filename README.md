@@ -1,50 +1,60 @@
+<!-- docfast-js-topics-docfast -->
 # docfast-js
 
-Fast documentations.
+- ##### Topics
 
-- ## Usage as Command Line
-``` bash
-#install
-npm i -g code-cy/docfast-js
+   - [Install](#install)
 
-#usage
-docfast-js <source.yaml> <target>
+      - [Command Line](#command-line)
 
-#examples
-docfast-js ./api/api-doc.yaml ./README.md
+         - [Sources Format](#sources-format)
 
-```
-- ## Sources Formats:
-    - [api-doc](https://github.com/code-cy/docfast-js/blob/master/formats/api-doc.yaml)  
+         - [Targets](#targets)
 
-- ## Targets:
-    - ### Markdown
-        - ```markdown
+            - [Markdown](#markdown)
+
+      - [Usage as Dependency](#usage-as-dependency)
+
+
+- #  Install
+   Has tow ways to implements
+
+   - ###  Command Line
+      
+      ```bash
+       #install
+      npm i -g code-cy/docfast-js
+      #usage
+      docfast-js <source.yaml> <target> <my-tag?>
+      #examples
+      docfast-js ./api/api-doc.yaml ./README.md 
+      ```
+      - ###  Sources Format
+         
+         [api-doc](https://github.com/code-cy/docfast-js/blob/master/formats/api-doc.yaml) 
+
+      - ###  Targets
+         
+
+         - ###  Markdown
+            
+            ```markdown
+                                 
             - Documentation:
             <!-- docfast-js-{format} -->
             <!-- /docfast-js-{format} -->
+            
             ```
-- ## Usage as Dependecy
-    ```bash
-        npm i code-cy/docfast-js
+   - ###  Usage as Dependency
+      
+      ```bash
+       npm i code-cy/docfast-js 
+      ```
 
-    ```
-    - in js:
+<!-- /docfast-js-topics-docfast -->
 
-        ```js
-            const {
-                langs,
-                functions,
-                markdown_template:{
-                    Title,
-                    Link,
-                    //code-cy/markdown-js-template
-                },
-                formats:{
-                    api_doc
-                }
-            } = require('docfast')
-        ```
+
+
 <!-- docfast-js-api-doc -->
 # API Documentation Example format: api-doc
 
@@ -191,3 +201,5 @@ docfast-js ./api/api-doc.yaml ./README.md
 
 
 <!-- /docfast-js-api-doc -->
+
+

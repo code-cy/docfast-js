@@ -7,12 +7,12 @@ const command = require('meow')
 
 const cli = command(`
   Usage
-    $ markdown-js-template <source.yaml> <target>
+    $ markdown-js-template <source.yaml> <target> <tag-name?>
   Examples
-    $ markdown-js-template ./api/swagger/swagger.yaml ./README.md
+    $ markdown-js-template ./api/swagger/swagger.yaml ./README.md  my-tag
 `)
 
-const [source, target] = cli.input
+const [source, target,tag] = cli.input
 
 
 Promise.resolve()
@@ -43,7 +43,7 @@ function template(data) {
 function updateMarkdownApi(template, target) {
   return fs.readFile(target, 'utf-8')
     .then((data) => {
-      const updated = xmlComment(data).replace(`docfast-js-${template.data.format}`, `\n${template.render}\n`).contents()
+      const updated = xmlComment(data).replace(`docfast-js-${template.data.format}${tag?`-${tag}`:""}`, `\n${template.render}\n`).contents()
       return fs.writeFile(target, updated)
     })
     .catch((error) => {

@@ -1,0 +1,52 @@
+format: topics
+vresion: 1.0.0
+
+title: "docfast-js"
+description: ""
+topics:
+  "Install":
+    description: "Has tow ways to implements"
+    topics:
+      "Command Line":
+        code:
+          lang: bash
+          content: "
+                  #install
+
+                  npm i -g code-cy/docfast-js
+
+                  #usage
+
+                  docfast-js <source.yaml> <target> <my-tag?>
+
+                  #examples
+
+                  docfast-js ./api/api-doc.yaml ./README.md
+                  "
+        topics:
+          "Sources Format":
+            links:
+              "api-doc": https://github.com/code-cy/docfast-js/blob/master/formats/api-doc.yaml
+          "Targets":
+            topics:
+              "Markdown":
+                code:
+                  lang: "markdown"
+                  content: "                     
+                  
+                          - Documentation:
+
+                          <!-- docfast-js-{format} -->
+
+                          <!-- /docfast-js-{format} -->
+                                            
+                           "
+      "Usage as Dependency":
+        code:
+          lang: bash
+          content: "
+          npm i code-cy/docfast-js
+          "
+
+
+    

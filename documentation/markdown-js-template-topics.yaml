@@ -1,0 +1,34 @@
+format: topics
+vresion: 1.0.0
+
+title: "markdown-js-template"
+topics:
+  "Components":
+    description: "This is a wiki of all components of **markdown-js-template**"
+    topics:
+      "Container":
+        description: "This component can contain other components"
+        topics:
+          "params":
+            table:
+              style: ["b", "l", " "]
+              headers: ["name", "type", "description"]
+              data:
+                - ["props", "object", "porperities of components"]
+                - ["children", "array/string", "children to render"]
+      "Title":
+        description: "This component can contain other components"
+        code:
+          lang: js
+          content: "
+            const {Title} = require('docfast-js').markdown_js_template;
+
+          "
+        topics:
+          "params":
+            table:
+              style: ["b","l",""]
+              headers: ["name", "type", "description"]
+              data:
+                - ["props", "object", "porperities of components"]
+                - ["children", "array/string", "children to render"]
