@@ -7,13 +7,17 @@
 
       - [Command Line](#command-line)
 
-         - [Sources Format](#sources-format)
+         - [Sources Formats](#sources-formats)
+
+            - [yaml](#yaml)
 
          - [Targets](#targets)
 
             - [Markdown](#markdown)
 
       - [Usage as Dependency](#usage-as-dependency)
+
+         - [Import](#import)
 
    - [API Documentation Example format: api-doc](#api-documentation-example-format-api-doc)
 
@@ -24,24 +28,29 @@
    - ###  Command Line
       
       ```bash
-       #install
+      #install
       npm i -g code-cy/docfast-js
       #usage
       docfast-js <source.yaml> <target> <my-tag?>
       #examples
       docfast-js ./api/api-doc.yaml ./README.md 
       ```
-      - ###  Sources Format
+      - ###  Sources Formats
          
-         [api-doc](https://github.com/code-cy/docfast-js/blob/master/formats/api-doc.yaml) [topics](https://github.com/code-cy/docfast-js/blob/master/documentation/docfast-js-topics.yaml) 
 
+         - ###  yaml
+            
+
+            - [api-doc](https://github.com/code-cy/docfast-js/blob/master/formats/api-doc.yaml)
+ 
+            - [topics](https://github.com/code-cy/docfast-js/blob/master/formats/topics.yaml)
+ 
       - ###  Targets
          
 
          - ###  Markdown
             
             ```markdown
-                                 
             - Documentation:
             <!-- docfast-js-{format}-{my-tag} -->
             <!-- /docfast-js-{format}-{my-tag} -->
@@ -52,6 +61,17 @@
       ```bash
        npm i code-cy/docfast-js 
       ```
+      - ###  Import
+         In your js file.
+         ```js
+         const {
+         langs,
+         functions,
+         markdown_js_template,
+         formats,
+         } = require('docfast-js');
+         
+         ```
 
 <!-- /docfast-js-topics-docfast -->
 
@@ -177,10 +197,6 @@
          |**create_at**|*string*| |
 
    - ### InvalidResponse
-      **Tipo:** *object*
-      |Nombre|Tipo|Descripción|
-      |----|----|----|
-      |**message**|*string*| |
 
       - ### errors
          **Tipo:** *object*

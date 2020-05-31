@@ -138,7 +138,15 @@ class Table extends Base{
     }
 
     constructor(props,thead, tbody){
-        super(props,[new TableHeader({},thead),new Table.TableBody({},tbody)]);
+        var th = new TableHeader({},thead);
+        var tb = new Table.TableBody({},tbody);
+        super(props,[th,tb]);
+        this.thead = th;
+        this.tbody = tb;
+    }
+
+    addData(props,data){
+        this.tbody.children.push([new TableData(props,data)]);
     }
 }
 
@@ -379,6 +387,7 @@ module.exports = {
      *  @param {Component.propsDef} props
      *  @param {string[]} headers
      *  @param {TableData[]} tableDatas
+     *  @return {Table}
      */
     Table: (props,headers,tableDatas) => new Table(props,headers,tableDatas),
     

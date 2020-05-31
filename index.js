@@ -3,6 +3,7 @@ module.exports = {
     functions: require('./src/libs/functions'),
     markdown_js_template: require('./src/libs/markdown-js-template/index'),
     formats:{
-        api_doc: require('./src/api-doc')
+        api_doc: require('./src/templates/api-doc'),
+        topics: require('./src/templates/topics')
     }
 }

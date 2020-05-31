@@ -2,10 +2,11 @@
 var beautify = require("json-beautify");
 
 const {
-    TableData, Container,
-    C, Title, TableHeader, L,
-    P, Link, B, Br, List, Code
-} = require('markdown-js-template');
+    Container,
+    C, Title, L,
+    P, Link, B, Br, List, Code,
+    Table,
+} = require('../libs/markdown-js-template');
 
 
 
@@ -14,9 +15,9 @@ const {
     jsonExample,
     extend,
     getRefRel,
-} = require('./libs/functions')
+} = require('../libs/functions')
 
-const langs = require('./libs/langs')
+const langs = require('../libs/langs')
 
 module.exports = function (api) {
     const tags = Object.keys(api.tags)
@@ -45,27 +46,35 @@ module.exports = function (api) {
             //tags
             Title({ h: 2 }, tag),
             P({}, api.tags[tag].description),
-            TableHeader({}, [lang.method, lang.route, `${lang.auth}?`, lang.description]),
-            routes.map(path => {
-                var paths = Object.keys(api.paths[path]).map(method => {
-                    extend(api, api.paths[path][method]);
-                    if (api.paths[path][method].tags) {
-                        if (api.paths[path][method].tags.find(i => i === tag)) {
-                            api.paths[path][method].method = method;
-                            api.paths[path][method].path = path;
-                            return api.paths[path][method];
+            () => {
+                var tableTag = Table({}, [lang.method, lang.route, `${lang.auth}?`, lang.description], []);
+
+                routes.forEach(path => {
+                    var paths = Object.keys(api.paths[path]).map(method => {
+                        extend(api, api.paths[path][method]);
+                        if (api.paths[path][method].tags) {
+                            if (api.paths[path][method].tags.find(i => i === tag)) {
+                                api.paths[path][method].method = method;
+                                return api.paths[path][method];
+                            }
                         }
-                    }
+                    })
+
+                    paths.forEach(methodData => {
+                        var pathref = path.split('/').join('');
+                        if (methodData)
+                            tableTag.addData({}, [
+                                B(methodData.method),
+                                Link({ href: hrefDocumentation(`${methodData.method}-${pathref}`) }, path),
+                                methodData.auth ? "Si" : "No", methodData.description
+                            ]);
+                    })
                 })
 
-                return paths.map(methodData => {
-                    var pathref = path.split('/').join('');
-                    if (methodData)
-                        return TableData({}, [B(methodData.method), Link({ href: hrefDocumentation(`${methodData.method}-${pathref}`) }, path), methodData.auth ? "Si" : "No", methodData.description]);
-                })
-            })
+                return tableTag;
+            },
         ])),
-        List({}, [
+        () => List({}, [
             [
                 //routes
                 Title({ h: 2 }, lang.routes),
@@ -90,25 +99,32 @@ module.exports = function (api) {
                                             List({}, [
                                                 route.request.headers ? [
                                                     B(lang.headers),
-                                                    TableHeader({}, [lang.name, lang.type]),
-                                                    Object.keys(route.request.headers).sort()
-                                                        .map(header => TableData({}, [B(header), L(route.request.headers[header])]))
+                                                    () => {
+                                                        var tableHeader = Table({}, [lang.name, lang.type]);
+                                                        Object.keys(route.request.headers).sort()
+                                                            .forEach(header => tableHeader.addData({}, [B(header), L(route.request.headers[header])]))
+                                                        return tableHeader;
+                                                    },
                                                 ] : null,
                                                 route.request.data ? [
                                                     B(lang.data),
-                                                    TableHeader({}, [lang.name, lang.type, lang.description, lang.rules]),
-                                                    Object.keys(route.request.data).sort()
-                                                        .map(data => {
-                                                            var itemData = route.request.data[data];
-                                                            var ref = getRef(itemData.ref);
-                                                            return TableData({}, [
-                                                                B(data),
-                                                                ref ? [Link({ href: hrefDocumentation(ref.name) }, ref.name), " ", L(ref.ref.type)]
-                                                                    : L(itemData.type),
-                                                                itemData.description,
-                                                                itemData.rules,
-                                                            ])
-                                                        })
+                                                    () => {
+                                                        var table = Table({}, [lang.name, lang.type, lang.description, lang.rules], []);
+                                                        Object.keys(route.request.data).sort()
+                                                            .forEach(data => {
+                                                                var itemData = route.request.data[data];
+                                                                var ref = getRef(itemData.ref);
+                                                                table.addData({}, [
+                                                                    B(data),
+                                                                    ref ? [Link({ href: hrefDocumentation(ref.name) }, ref.name), " ", L(ref.ref.type)]
+                                                                        : L(itemData.type),
+                                                                    itemData.description,
+                                                                    itemData.rules,
+                                                                ])
+                                                            })
+                                                        return table;
+                                                    },
+
                                                 ] : null,
                                                 route.request.in ? () => {
                                                     var in_ = route.request.in;
@@ -131,7 +147,7 @@ module.exports = function (api) {
                                                         return [
                                                             [C(code), " ", response.description],
                                                             response.data ? List({}, [response.data.json ? () => {
-                                                                var item = getRef(response.data.json.ref) || {name:"json", ref: response.data.json };
+                                                                var item = getRef(response.data.json.ref) || { name: "json", ref: response.data.json };
                                                                 var result = {}
                                                                 jsonExample(api, item.name, item.ref, result);
                                                                 var data = result[item.name];
@@ -163,41 +179,45 @@ module.exports = function (api) {
                         models.map(modelName => {
                             var model = api.models[modelName];
                             var n = modelName
-                           
+
 
                             return function objectProp(name, obj) {
 
                                 model = obj ? obj : model;
                                 n = name ? name : n;
-                                
-                                                                
+
+
                                 return [
                                     Title({ h: 3 }, n),
                                     model.type === 'object' ? () => {
                                         var props = Object.keys(model.props);
-
-                                        return [
-                                            props.map((propName, k) => {                                                
-                                                var prop = model.props[propName];
-                                                if(!prop)
-                                                    console.log(prop);
-                                                if (prop) {
-                                                                                                    
-                                                    if (prop.type === 'object')
-                                                        return List({}, [objectProp(propName, prop)]);
-                                                    if (k == 0)
-                                                        return [
+                                        var table;
+                                        var content;
+                                        props.forEach((propName, k) => {
+                                            var prop = model.props[propName];
+                                            if (prop) {
+                                                if (prop.type === 'object')
+                                                    content = List({}, [objectProp(propName, prop)]);
+                                                else
+                                                    if (k == 0) {
+                                                        table = Table({}, [lang.name, lang.type, lang.description], []);
+                                                        content = [
                                                             P({}, [B(lang.type + ":"), " ", L(model.type)]),
-                                                            TableHeader({}, [lang.name, lang.type, lang.description]),
-                                                            TableData({}, [B(propName), L(prop.type), prop.description || " "])
+                                                            table,
                                                         ]
-                                                    return TableData({}, [B(propName), L(prop.type), prop.description || " "]);
-                                                }
-                                            })
-                                        ]
+                                                    }
+                                                if (table)
+                                                    table.addData({}, [B(propName), L(prop.type), prop.description || " "]);
+                                            }
+                                        })
+                                        return content;
                                     } : () => P({}, [
-                                        B(lang.type + ":"), " ", L(model.enum?"enum":model.type),Br,
-                                        model.enum instanceof Array?[B(lang.data+":")," ",model.enum.map((v,k)=>[k?",":null," ",L(v)]),Br]:null
+                                        B(lang.type + ":"), " ", L(model.enum ? "enum" : model.type), Br,
+                                        model.enum instanceof Array ? [
+                                            B(lang.data + ":"), " ",
+                                            model.enum.map((v, k) => [k ? "," : null, " ", L(v)]),
+                                            Br
+                                        ] : null
                                     ])
                                 ]
                             }

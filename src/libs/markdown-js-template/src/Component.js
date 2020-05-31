@@ -35,6 +35,17 @@ module.exports = class Component{
         }        
     }
 
+    addChild(child){
+        if(child){
+            if(child instanceof Array)
+                child.forEach(i=>{
+                    this.children.push(i);
+                })
+            else
+                this.children.push(child);
+        }
+    }
+
     addParent(parent){
         this.parent = parent;
     }

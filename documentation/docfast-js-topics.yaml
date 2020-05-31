@@ -10,8 +10,7 @@ topics:
       "Command Line":
         code:
           lang: bash
-          content: "
-                  #install
+          content: "#install
 
                   npm i -g code-cy/docfast-js
 
@@ -24,18 +23,18 @@ topics:
                   docfast-js ./api/api-doc.yaml ./README.md
                   "
         topics:
-          "Sources Format":
-            links:
-              "api-doc": https://github.com/code-cy/docfast-js/blob/master/formats/api-doc.yaml
-              "topics": https://github.com/code-cy/docfast-js/blob/master/documentation/docfast-js-topics.yaml
+          "Sources Formats":
+            topics:
+              "yaml":
+                links:
+                  "api-doc": https://github.com/code-cy/docfast-js/blob/master/formats/api-doc.yaml
+                  "topics": https://github.com/code-cy/docfast-js/blob/master/formats/topics.yaml
           "Targets":
             topics:
               "Markdown":
                 code:
                   lang: "markdown"
-                  content: "                     
-                  
-                          - Documentation:
+                  content: "- Documentation:
 
                           <!-- docfast-js-{format}-{my-tag} -->
 
@@ -48,6 +47,24 @@ topics:
           content: "
           npm i code-cy/docfast-js
           "
+        topics:
+          "Import":
+            description: "In your js file."
+            code:
+              lang: js
+              content: "const {
+                        
+                        langs,
+
+                        functions,
+
+                        markdown_js_template,
+                        
+                        formats,
+
+                      } = require('docfast-js');
+                    
+                    "
   "API Documentation Example format: api-doc":
     off: true
 
