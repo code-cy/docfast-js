@@ -8,8 +8,7 @@
 function jsonExample(rel,name, obj, result) {
     if (typeof obj.ref === 'string') {
         var item = getRefRel(rel,obj.ref);
-        if(item){
-            console.log(obj);                       
+        if(item){                                 
             jsonExample(rel,name, item.ref, result);
         }
         

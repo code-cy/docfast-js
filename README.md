@@ -187,6 +187,11 @@
       |**token**|*string*| |
 
    - ### UserLoginResponse
+      **Tipo:** *object*
+      |Nombre|Tipo|Descripción|
+      |----|----|----|
+      |**user**|*object*| |
+      |**token**|*string*| |
 
       - ### user
          **Tipo:** *object*
@@ -197,6 +202,11 @@
          |**create_at**|*string*| |
 
    - ### InvalidResponse
+      **Tipo:** *object*
+      |Nombre|Tipo|Descripción|
+      |----|----|----|
+      |**message**|*string*| |
+      |**errors**|*object*| |
 
       - ### errors
          **Tipo:** *object*

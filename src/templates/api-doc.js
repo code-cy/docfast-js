@@ -50,24 +50,19 @@ module.exports = function (api) {
                 var tableTag = Table({}, [lang.method, lang.route, `${lang.auth}?`, lang.description], []);
 
                 routes.forEach(path => {
-                    var paths = Object.keys(api.paths[path]).map(method => {
-                        extend(api, api.paths[path][method]);
-                        if (api.paths[path][method].tags) {
-                            if (api.paths[path][method].tags.find(i => i === tag)) {
-                                api.paths[path][method].method = method;
-                                return api.paths[path][method];
+                    Object.keys(api.paths[path]).forEach(method => {
+                        var route = api.paths[path][method];
+                        extend(api, route);
+                        if (route.tags) {
+                            if (route.tags.find(i => i === tag)) {
+                                var pathref = path.split('/').join('');
+                                tableTag.addData({}, [
+                                    B(method),
+                                    Link({ href: hrefDocumentation(`${method}-${pathref}`) }, path),
+                                    route.auth ? "Si" : "No", route.description
+                                ]);
                             }
                         }
-                    })
-
-                    paths.forEach(methodData => {
-                        var pathref = path.split('/').join('');
-                        if (methodData)
-                            tableTag.addData({}, [
-                                B(methodData.method),
-                                Link({ href: hrefDocumentation(`${methodData.method}-${pathref}`) }, path),
-                                methodData.auth ? "Si" : "No", methodData.description
-                            ]);
                     })
                 })
 
@@ -149,6 +144,7 @@ module.exports = function (api) {
                                                             response.data ? List({}, [response.data.json ? () => {
                                                                 var item = getRef(response.data.json.ref) || { name: "json", ref: response.data.json };
                                                                 var result = {}
+                                                                extend(api, item.ref)
                                                                 jsonExample(api, item.name, item.ref, result);
                                                                 var data = result[item.name];
                                                                 var json = beautify(data, null, 2, 100);
@@ -176,40 +172,44 @@ module.exports = function (api) {
                 Title({ h: 2 }, lang.models),
                 function renderModels() {
                     return List({},
-                        models.map(modelName => {
+                        models.map((modelName, m) => {
                             var model = api.models[modelName];
                             var n = modelName
+                            extend(api, model);
 
 
-                            return function objectProp(name, obj) {
+                            return function objectProp(name, obj, deep = 0) {
 
                                 model = obj ? obj : model;
                                 n = name ? name : n;
 
-
                                 return [
                                     Title({ h: 3 }, n),
                                     model.type === 'object' ? () => {
-                                        var props = Object.keys(model.props);
-                                        var table;
-                                        var content;
+                                        const propsItem = model.props;
+                                        var props = Object.keys(propsItem);
+                                        var table = Table({}, [lang.name, lang.type, lang.description], []);
+                                        var content = [
+                                            P({}, [B(lang.type + ":"), " ", L(model.type)]),
+                                            table,
+                                        ];
+
                                         props.forEach((propName, k) => {
                                             var prop = model.props[propName];
+                                            if (!prop) {
+                                                prop = propsItem[propName];
+                                            }
+
                                             if (prop) {
                                                 if (prop.type === 'object')
-                                                    content = List({}, [objectProp(propName, prop)]);
-                                                else
-                                                    if (k == 0) {
-                                                        table = Table({}, [lang.name, lang.type, lang.description], []);
-                                                        content = [
-                                                            P({}, [B(lang.type + ":"), " ", L(model.type)]),
-                                                            table,
-                                                        ]
-                                                    }
+                                                    content.push(List({}, [objectProp(propName, prop, deep + 1)]));
+
                                                 if (table)
                                                     table.addData({}, [B(propName), L(prop.type), prop.description || " "]);
                                             }
                                         })
+
+
                                         return content;
                                     } : () => P({}, [
                                         B(lang.type + ":"), " ", L(model.enum ? "enum" : model.type), Br,

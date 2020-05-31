@@ -106,7 +106,7 @@ models:
                 example: akslkdláskldkalskdlkasld´kaslkd´laskdasdkasjdklñjaksjdkasdjkañsjdlkj
 
     UserLoginResponse:
-        extend: models.UserStoreResponse.props.token
+        extend: models.UserStoreResponse
         type: object
         props:
             user:
@@ -120,9 +120,8 @@ models:
                         example: me@example.ocm 
                     create_at: 
                         type: string 
-                        example: 20-254-000                            
-            token:                
-                ref: models.UserStoreResponse.props.token
+                        example: 20-254-000                       
+            
 
     InvalidResponse:
         type: object

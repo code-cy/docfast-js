@@ -47,7 +47,7 @@ module.exports = class Component{
     }
 
     addParent(parent){
-        this.parent = parent;
+        this.parent = parent;        
     }
 
     /**
@@ -95,7 +95,7 @@ module.exports = class Component{
      * @return {string}
      */
     render(){     
-        if(this.parent)
+        if(this.parent instanceof Component)
             this.props.tabs += this.parent.props.tabs;  
         var d="";
         if(!(typeof this.children === 'string')){
