@@ -309,7 +309,7 @@ class Comp extends Component {
     /**
      * 
      * @param {Component.propsDef} props 
-     * @param {any} children 
+     * @param {any[]} children 
      */
     constructor(props, children) {
         super(props, children)

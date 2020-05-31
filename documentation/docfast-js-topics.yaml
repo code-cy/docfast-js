@@ -65,6 +65,8 @@ topics:
                       } = require('docfast-js');
                     
                     "
+  "markdown-js-template":
+    off: true
   "API Documentation Example format: api-doc":
     off: true
 

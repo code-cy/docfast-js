@@ -6,8 +6,74 @@ topics:
   "Components":
     description: "This is a wiki of all components of **markdown-js-template**"
     topics:
+      "Methods":
+        table:
+          style: ["b", " ", " "," "]
+          headers: ["name", "params","returns", "description"]
+          data:
+            - ["render", " ", "*string*","render the component."]
+            - ["addChild", "*child* *:* *array/string*","*void*", "add child in component array children."]
       "Container":
         description: "This component can contain other components"
+        code:
+          lang: js
+          content: "const {Container} = require('docfast-js').markdown_js_template;
+          
+          var str = Container({...},[
+            ...
+          ]).render();
+          "
+        topics:
+          "params":
+            table:
+              style: ["b", "l", " "]
+              headers: ["name", "type", "description"]
+              data:
+                - ["props", "object", "porperities of components"]
+                - ["children", "array", "children to render"]
+            topics:
+              "props":
+                table:
+                  style: ["b", "l", " "]
+                  headers: ["name", "type", "description"]
+                  data:
+                    - ["html", "boolean", "render as html"]                    
+      "Container as Array/Function":
+        description: "Array in children array is a Container: "
+        code:
+          lang: js
+          content: "Container({},[
+            
+                  \t[
+
+                    \t/*container 1*/
+
+                  \t],
+
+                  \t()=>[
+
+                    \t/*Function return array Container  2*/
+
+                  \t]
+
+          ])"
+      "Title":
+        description: "Titles are headers in markdown."
+        code:
+          lang: js
+          content: "const {...,Title} = require('docfast-js').markdown_js_template;
+          
+
+           var str = Container({...},[
+
+            \tTitle({},'Hello World')
+
+            \tTitle({h:2},'Hi')
+
+          ]).render();
+          
+
+          "
         topics:
           "params":
             table:
@@ -16,19 +82,65 @@ topics:
               data:
                 - ["props", "object", "porperities of components"]
                 - ["children", "array/string", "children to render"]
-      "Title":
-        description: "This component can contain other components"
+            topics:
+              "props":
+                table:
+                  style: ["b", "l", " "]
+                  headers: ["name", "type", "description"]
+                  data:
+                    - ["html", "boolean", "render as html."]                   
+                    - ["h", "number", "header number."]
+      "List & NumList":
+        description: "List is an unorden list in markdown. NumList is a orden list."
         code:
           lang: js
-          content: "
-            const {Title} = require('docfast-js').markdown_js_template;
+          content: "const {..., List, NumList} = require('docfast-js').markdown_js_template;
+          
+           var fruits = ['pear','apple','orange']
+
+           var str = Container({...}, [
+
+            NumList({},[
+
+            \t'Element x',
+
+            \t'Element y',
+
+            \t[
+
+            \t\tTitle({},'Element z'),
+
+            \t\t'element z container',
+
+            \t]
+
+            \t[
+
+            \t\tTitle({},'Fruits'),
+
+            \t\tList({},fruits),
+
+            \t]
+
+            ])
+
+          ]).render();
+          
 
           "
         topics:
           "params":
             table:
-              style: ["b","l",""]
+              style: ["b", "l", " "]
               headers: ["name", "type", "description"]
               data:
                 - ["props", "object", "porperities of components"]
                 - ["children", "array/string", "children to render"]
+            topics:
+              "props":
+                table:
+                  style: ["b", "l", " "]
+                  headers: ["name", "type", "description"]
+                  data:
+                    - ["html", "boolean", "render as html."]                   
+                    
