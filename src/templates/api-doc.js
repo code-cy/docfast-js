@@ -203,9 +203,7 @@ module.exports = function (api) {
                                             if (prop) {
                                                 if (prop.type === 'object')
                                                     content.push(List({}, [objectProp(propName, prop, deep + 1)]));
-
-                                                if (table)
-                                                    table.addData({}, [B(propName), L(prop.type), prop.description || " "]);
+                                                 table.addData({}, [B(propName), L(prop.type), prop.description || " "]);
                                             }
                                         })
 
