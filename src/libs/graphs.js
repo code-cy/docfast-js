@@ -98,5 +98,8 @@ class MermaidGraph extends Factory{
     }
 }
 
-
-module.exports.MermaidGraph = ()=> new MermaidGraph()
+/**
+* 
+* @param {(graph:GraphDefiner)=>void} callback 
+*/
+module.exports.MermaidGraph = (callback)=> new MermaidGraph(callback)
