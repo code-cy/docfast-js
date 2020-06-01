@@ -100,7 +100,7 @@
 
             - [props](#1-props)
 
-      - [List & NumList](#list-&-numlist)
+      - [List & NumList](#list--numlist)
 
          - [params](#2-params)
 

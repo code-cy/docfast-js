@@ -62,6 +62,14 @@ var source = {
 module.exports = function (s_) {
     source = s_ ? s_ : source;
     var tags = {};
+    function link(h){
+        return h.toLowerCase()
+        .replace('/','')
+        .replace('&','')
+        .replace(':', '')
+        .split(' ')
+        .join('-');
+    }
     return Container({}, [
         Title({}, source.title),
         List({}, [
@@ -80,7 +88,7 @@ module.exports = function (s_) {
                         }
 
                         return [
-                            Link({ href: "#" + (tags[topicName] ? tags[topicName] + "-" : "") + `${topicName.toLowerCase().replace('/','').replace(':', '').split(' ').join('-')}` }, topicName),
+                            Link({ href: "#" + (tags[topicName] ? tags[topicName] + "-" : "") + `${link(topicName)}` }, topicName),
                             topic.topics instanceof Object ? topicNav(topic.topics) : null
                         ]
 
