@@ -94,40 +94,22 @@ topics:
         description: "List is an unorden list in markdown. NumList is a orden list."
         code:
           lang: js
-          content: "const {..., List, NumList} = require('docfast-js').markdown_js_template;
-          
-           var fruits = ['pear','apple','orange']
-
-           var str = Container({...}, [
-
-            NumList({},[
-
-            \t'Element x',
-
-            \t'Element y',
-
-            \t[
-
-            \t\tTitle({},'Element z'),
-
-            \t\t'element z container',
-
-            \t]
-
-            \t[
-
-            \t\tTitle({},'Fruits'),
-
-            \t\tList({},fruits),
-
-            \t]
-
-            ])
-
-          ]).render();
-          
-
-          "
+          content: "const {..., List, NumList} = require('docfast-js').markdown_js_template;\n\n
+          var fruits = ['pear','apple','orange']\n
+          var str = Container({...}, [\n
+            NumList({},[\n
+            \t'Element x',\n
+            \t'Element y',\n
+            \t[\n
+            \t\tTitle({},'Element z'),\n
+            \t\t'element z container',\n
+            \t]\n
+            \t[\n
+            \t\tTitle({},'Fruits'),\n
+            \t\tList({},fruits),\n
+            \t]\n
+            ])\n
+          ]).render();"
         topics:
           "params":
             table:
@@ -142,5 +124,48 @@ topics:
                   style: ["b", "l", " "]
                   headers: ["name", "type", "description"]
                   data:
+                    - ["html", "boolean", "render as html."] 
+      "Table":
+        description: "Tables in markdown."
+        code:
+          lang: js
+          content: "const {...,Table, TableData} = require('docfast-js').markdown_js_template;\n\n
+          var animals = [\n\t{name:'pupy',age:25},\n\t{name:'krik',age:14}\n];\n
+          var str = Container({...},[\n
+            \tTable({},['h1','h2','h3'],[\n
+                \t\tTableData({},['d11','d12','d13']),\n
+                \t\tTableData({},['d21','d22','d23'])\n
+            \t]),\n
+              //With method addData\n
+              ()=>{\n
+                var my_table = Table({},['name','age'],[]);\n
+                animals.forEach(a => my_table.addData({}, [ a.name, a.age ]));\n
+                return my_table;\n
+              }\n
+          ]).render();
+          "
+        topics:
+          "Methods":
+            table:
+              style: ["b", " ", " "," "]
+              headers: ["name", "params","returns", "description"]
+              data:
+                - ["addData", "*props:object*, *data:array* ", "*void*","add a TableData to table tbody."]
+                
+          "params":
+            table:
+              style: ["b", "l", " "]
+              headers: ["name", "type", "description"]
+              data:
+                - ["props", "object", "porperities of components"]
+                - ["thead", "string[]", "table headers."]
+                - ["tbody", "array", "tbody children."]
+            topics:
+              "props":
+                table:
+                  style: ["b", "l", " "]
+                  headers: ["name", "type", "description"]
+                  data:
                     - ["html", "boolean", "render as html."]                   
+                                     
                     
