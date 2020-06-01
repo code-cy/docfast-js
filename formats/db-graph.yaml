@@ -1,0 +1,42 @@
+format: db-graph
+version: 1.0.0
+
+models:
+  "User":
+    props:
+      "id":
+        type: integer
+        primary: true
+      "name":
+        type: string
+      "device_id":
+        type: integer
+        fk: true
+    relations:
+      "pets":
+        hasMany:
+          model: Pet
+          ref: user_id
+      "device":
+        belongsTo:
+          model: Device
+          fk: device_id
+  "Pet":
+    props:
+      "id":
+        type: integer
+        primary: true
+      "name":
+        type: string
+      "age":
+        type: integer
+  
+  "Device":
+    props:
+      "id":
+        type: integer
+
+  
+      
+      
+
