@@ -135,7 +135,7 @@
          
          |name|type|description|
          |----|----|----|
-         |**props**|*object*|porperities of components|
+         |**props**|*object*|properities of components|
          |**children**|*array*|children to render|
 
          - ###  props
@@ -172,7 +172,7 @@
          
          |name|type|description|
          |----|----|----|
-         |**props**|*object*|porperities of components|
+         |**props**|*object*|properities of components|
          |**children**|*array/string*|children to render|
 
          - ### <d style='color:white;'>1</d> props
@@ -207,7 +207,7 @@
          
          |name|type|description|
          |----|----|----|
-         |**props**|*object*|porperities of components|
+         |**props**|*object*|properities of components|
          |**children**|*array/string*|children to render|
 
          - ### <d style='color:white;'>2</d> props
@@ -248,7 +248,7 @@
          
          |name|type|description|
          |----|----|----|
-         |**props**|*object*|porperities of components|
+         |**props**|*object*|properities of components|
          |**thead**|*string[]*|table headers.|
          |**tbody**|*array*|tbody children.|
 

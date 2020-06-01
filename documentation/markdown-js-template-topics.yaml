@@ -29,7 +29,7 @@ topics:
               style: ["b", "l", " "]
               headers: ["name", "type", "description"]
               data:
-                - ["props", "object", "porperities of components"]
+                - ["props", "object", "properities of components"]
                 - ["children", "array", "children to render"]
             topics:
               "props":
@@ -80,7 +80,7 @@ topics:
               style: ["b", "l", " "]
               headers: ["name", "type", "description"]
               data:
-                - ["props", "object", "porperities of components"]
+                - ["props", "object", "properities of components"]
                 - ["children", "array/string", "children to render"]
             topics:
               "props":
@@ -116,7 +116,7 @@ topics:
               style: ["b", "l", " "]
               headers: ["name", "type", "description"]
               data:
-                - ["props", "object", "porperities of components"]
+                - ["props", "object", "properities of components"]
                 - ["children", "array/string", "children to render"]
             topics:
               "props":
@@ -157,7 +157,7 @@ topics:
               style: ["b", "l", " "]
               headers: ["name", "type", "description"]
               data:
-                - ["props", "object", "porperities of components"]
+                - ["props", "object", "properities of components"]
                 - ["thead", "string[]", "table headers."]
                 - ["tbody", "array", "tbody children."]
             topics:

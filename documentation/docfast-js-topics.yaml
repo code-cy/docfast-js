@@ -5,7 +5,7 @@ title: "docfast-js"
 description: ""
 topics:
   "Install":
-    description: "Has tow ways to implements"
+    description: "Has two ways to implements"
     topics:
       "Command Line":
         code:
