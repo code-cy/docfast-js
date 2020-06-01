@@ -25,7 +25,7 @@
 
 
 - #  Install
-   Has tow ways to implements
+   Has two ways to implements
 
    - ###  Command Line
       
