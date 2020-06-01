@@ -65,8 +65,11 @@ topics:
                       } = require('docfast-js');
                     
                     "
-  "markdown-js-template":
-    off: true
+            topics:
+              "markdown-js-template":
+                description: "Its a framework to render a markdown/html components."
+                links:
+                  Components: https://github.com/code-cy/docfast-js/blob/master/src/libs/markdown-js-template/Readme.md  
   "API Documentation Example format: api-doc":
     off: true
 
