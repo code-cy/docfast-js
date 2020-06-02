@@ -35,6 +35,7 @@ models:
     props:
       "id":
         type: integer
+        primary: true
 
   
       
