@@ -35,7 +35,7 @@ function readYamlFile(source) {
 
 function template(data) {
   return {
-    render: require(`./src/templates/${data.format}`)(data).render(),
+    render: require(`../src/templates/${data.format}`)(data).render(),
     data,
   }
 }
