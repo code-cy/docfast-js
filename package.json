@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "docfast-js": "./bin.js"
+    "docfast-js": "./bin/docfast.js",
+    "docfast-export": "./bin/docfast-export.js"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
@@ -32,10 +33,12 @@
   },
   "homepage": "https://github.com/calimpio/docfast-js#readme",
   "dependencies": {
+    "@mermaid-js/mermaid-cli": "^8.5.1-2",
     "fs-extra": "^9.0.0",
     "js-yaml": "^3.14.0",
     "json-beautify": "^1.1.1",
     "meow": "^7.0.1",
+    "node-cmd": "^3.0.0",
     "xml-comment-api": "^1.0.1"
   }
 }

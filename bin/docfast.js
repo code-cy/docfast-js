@@ -7,9 +7,9 @@ const command = require('meow')
 
 const cli = command(`
   Usage
-    $ markdown-js-template <source.yaml> <target> <tag-name?>
+    $ docfast-js <source.yaml> <target> <tag-name?>
   Examples
-    $ markdown-js-template ./api/swagger/swagger.yaml ./README.md  my-tag
+    $ docfast-js ./api/swagger/swagger.yaml ./README.md  my-tag
 `)
 
 const [source, target,tag] = cli.input
