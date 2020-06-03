@@ -2,7 +2,6 @@ const command = require('meow')
 const fs = require('fs-extra')
 const { routerSource } = require('./libs/functions')
 const catchs = require('./libs/erros/catchs')
-const {classDiagram} = require('../src/libs/graphs')
 const cmd = require('node-cmd')
 
 const cli = command(`
@@ -40,17 +39,7 @@ function router(flags) {
 function graphs(source, folder) {
     return routerSource(source).then(data => {
         var formats = ['db-graphs']
-        var formatGraphs = {
-            'db-graphs':[
-                {
-                    name: 'classDiagram',
-                    engine: 'mermaid',
-                    template: (source)=>{
-                        return classDiagram(source).children[0].children;                       
-                    } 
-                }
-            ]
-        }
+        var formatGraphs = require('./libs/graphs')
         if(formats.find(f=>data.format===f))
             return fs.pathExists(folder).then(exists=>{
                 if(!exists)
