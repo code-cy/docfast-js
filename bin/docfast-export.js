@@ -50,7 +50,7 @@ function graphs(source, folder) {
                     var file = folder+'/'+g.name+'.mmd';
                     fs.writeFile(file,g.template(data)).then(()=>{
                         if(g.engine==='mermaid')
-                            cmd.run(`npx mermaid-cli -s ${file} -o ${folder}/${g.name}.png`)
+                            cmd.run(`npx mmdc -i ${file} -o ${folder}/${g.name}.png`)
                     })
                 })
             })
