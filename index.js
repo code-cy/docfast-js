@@ -6,5 +6,5 @@ module.exports = {
     formats:{
         api_doc: require('./src/templates/api-doc'),
         topics: require('./src/templates/topics')
-    }
+    },    
 }

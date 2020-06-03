@@ -4,7 +4,8 @@ const yaml = require('js-yaml')
 const fs = require('fs-extra')
 const xmlComment = require('xml-comment-api');
 const command = require('meow')
-
+const {routerSource} = require('./libs/functions')
+const catchs = require('./libs/erros/catchs')
 const cli = command(`
   Usage
     $ docfast-js <source.yaml> <target> <tag-name?>
@@ -16,22 +17,12 @@ const [source, target,tag] = cli.input
 
 
 Promise.resolve()
-  .then(() => readYamlFile(source))
+  .then(() => routerSource(source))
   .then((data) => template(data))
   .then((template) => updateMarkdownApi(template, target))
+  .catch(catchs)
 
 
-function readYamlFile(source) {
-  return fs.readFile(source, 'utf-8')
-    .then((data) => yaml.safeLoad(data))
-    .catch((error) => {
-      if (error.code === 'ENOENT') {
-        throw new Error(`${source} doesn't exist`)
-      }
-
-      throw error;
-    })
-}
 
 function template(data) {
   return {

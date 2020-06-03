@@ -1,4 +1,4 @@
-format: db-graph
+format: db-graphs
 version: 1.0.0
 
 models:
