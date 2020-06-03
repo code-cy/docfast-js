@@ -1,16 +1,16 @@
-const {classDiagram} = require('../../src/libs/graphs')
+const {ModelClassDiagram} = require('../../src/libs/graphs')
 
 module.exports = {
     'db-graphs':[
         {
-            name: 'classDiagram',
+            name: 'ModelClassDiagram',
             engine: 'mermaid',
             /**
              * @param {any} source
              * @return {string}
              */
             template: (source)=>{
-                return classDiagram(source).children[0].children;                       
+                return ModelClassDiagram(source).children[0].children;                       
             } 
         }
     ]

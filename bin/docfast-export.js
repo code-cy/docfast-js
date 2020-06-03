@@ -40,21 +40,21 @@ function graphs(source, folder) {
     return routerSource(source).then(data => {
         var formats = ['db-graphs']
         var formatGraphs = require('./libs/graphs')
-        if(formats.find(f=>data.format===f))
-            return fs.pathExists(folder).then(exists=>{
-                if(!exists)
-                    return fs.mkdir(folder);                 
-            }).then(()=>{
+        if (formats.find(f => data.format === f))
+            return fs.pathExists(folder).then(exists => {
+                if (!exists)
+                    return fs.mkdir(folder);
+            }).then(() => {
                 var graphs = formatGraphs[data.format];
-                graphs.forEach(g=>{
-                    var file = folder+'/'+g.name+'.mmd';
-                    fs.writeFile(file,g.template(data)).then(()=>{
-                        if(g.engine==='mermaid')
+                graphs.forEach(g => {
+                    var file = folder + '/' + g.name + '.mmd';
+                    fs.writeFile(file, g.template(data)).then(() => {
+                        if (g.engine === 'mermaid')
                             cmd.run(`npx mmdc -i ${file} -o ${folder}/${g.name}.png`)
                     })
                 })
             })
-        throw new Error('FORMAT_HAS_NOT_GRAPH_TO_RENDER: formats allowed: '+formats.join(' '))      
-                
+        throw new Error('FORMAT_HAS_NOT_GRAPH_TO_RENDER: formats allowed: ' + formats.join(' '))
+
     })
 }
