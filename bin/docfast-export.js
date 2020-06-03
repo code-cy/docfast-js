@@ -43,8 +43,9 @@ function graphs(source, folder) {
         var formatGraphs = {
             'db-graphs':[
                 {
-                    name:'classDiagram',
-                    template:(source)=>{
+                    name: 'classDiagram',
+                    engine: 'mermaid',
+                    template: (source)=>{
                         return classDiagram(source).children[0].children;                       
                     } 
                 }
@@ -59,7 +60,8 @@ function graphs(source, folder) {
                 graphs.forEach(g=>{
                     var file = folder+'/'+g.name+'.mmd';
                     fs.writeFile(file,g.template(data)).then(()=>{
-                        cmd.run(`npx mermaid-cli -s ${file} -o ${folder}/${g.name}.png`)
+                        if(g.engine==='mermaid')
+                            cmd.run(`npx mermaid-cli -s ${file} -o ${folder}/${g.name}.png`)
                     })
                 })
             })
