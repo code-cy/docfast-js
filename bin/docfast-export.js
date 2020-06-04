@@ -1,8 +1,11 @@
+#!/usr/bin/env node
+
 const command = require('meow')
 const fs = require('fs-extra')
 const { routerSource } = require('./libs/functions')
 const catchs = require('./libs/erros/catchs')
 const cmd = require('node-cmd')
+const path = require('path')
 
 const cli = command(`
   #Usage
@@ -14,7 +17,7 @@ const cli = command(`
                 -f  <folder>:       Folder target to export files. Must be empty.
                                     Make a folder if not exist.
             #Examples
-                $ docfast-export --graphs ./db-graph.yaml -f ./export/my/path/is/it
+                $ docfast-export --graphs ./db-graph.yaml -f ./exports/my/path/is/it
                 
 `)
 
@@ -41,18 +44,24 @@ function graphs(source, folder) {
         var formats = ['db-graphs']
         var formatGraphs = require('./libs/graphs')
         if (formats.find(f => data.format === f))
-            return fs.pathExists(folder).then(exists => {
+            return fs.pathExists(folder).then(exists => {             
                 if (!exists)
-                    return fs.mkdir(folder);
+                    return cmd.get(`mkdir ${path.toNamespacedPath(folder)}`,(err,data)=>{                        
+                        if(err)throw err;                                             
+                    });
             }).then(() => {
                 var graphs = formatGraphs[data.format];
                 graphs.forEach(g => {
                     var file = folder + '/' + g.name + '.mmd';
-                    fs.writeFile(file, g.template(data)).then(() => {
+                    fs.writeFile(file, g.template(data).getGraph()).then(() => {
+                        console.log("File created: "+file);                        
                         if (g.engine === 'mermaid')
-                            cmd.run(`npx mmdc -i ${file} -o ${folder}/${g.name}.png`)
+                            cmd.get(`npx mmdc -i ${file} -o ${folder}/${g.name}.png`,(err,data)=>{
+                                if(err) throw err;
+                                console.log(`file created: ${folder}/${g.name}.png`);                                
+                            })
                     })
-                })
+                })         
             })
         throw new Error('FORMAT_HAS_NOT_GRAPH_TO_RENDER: formats allowed: ' + formats.join(' '))
 

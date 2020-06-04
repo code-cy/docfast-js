@@ -10,6 +10,7 @@ module.exports = class Component{
         h: 1,        
         lang: "",
         href: '',
+        src: '',
     }
     /**
      * @param {Component.propsDef} props

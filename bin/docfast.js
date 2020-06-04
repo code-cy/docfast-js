@@ -6,6 +6,7 @@ const xmlComment = require('xml-comment-api');
 const command = require('meow')
 const {routerSource} = require('./libs/functions')
 const catchs = require('./libs/erros/catchs')
+const tools = require('./libs/tools')
 const cli = command(`
   Usage
     $ docfast-js <source.yaml> <target> <tag-name?>
@@ -20,6 +21,7 @@ Promise.resolve()
   .then(() => routerSource(source))
   .then((data) => template(data))
   .then((template) => updateMarkdownApi(template, target))
+  .then(tools)
   .catch(catchs)
 
 
@@ -42,5 +44,11 @@ function updateMarkdownApi(template, target) {
         throw new Error(`${target} doesn't exist`)
       }
       throw error;
+    }).then(()=>{
+      return {
+        data: template.data,
+        source: source,
+        target,
+      }
     })
 }

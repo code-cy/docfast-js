@@ -11,9 +11,7 @@ module.exports = {
              * @param {any} source
              * @return {string}
              */
-            template: (source)=>{
-                return ModelClassDiagram(source).children[0].children;                       
-            } 
+            template: ModelClassDiagram
         }
     ]
 }

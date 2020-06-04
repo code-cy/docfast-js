@@ -139,6 +139,10 @@ class MermaidGraph extends Factory {
         callback(graph);
         super({}, [Code({ lang: 'mermaid' }, def.render())])
     }
+
+    getGraph(){
+        return this.children[0].children;
+    }
 }
 
 /**
