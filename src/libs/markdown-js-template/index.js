@@ -294,6 +294,22 @@ class Code extends Base {
 
 }
 
+class Img extends Link{
+    constructor(props){
+        super(props,'image');        
+    }
+
+    toString(){
+        if (this.props.style || this.htmlMode)
+            return super.toString();
+        return `![image](${this.props.src})`;
+    }
+
+    htmlNode(){
+        return 'img';
+    }
+}
+
 class C extends Base {
     htmlNode(){
         return "code"
@@ -361,6 +377,13 @@ module.exports = {
      * @returns {Container}
      */
     Container: (props, children) => new Container(props, children),
+
+    /**
+     * @param {Component.propsDef} props
+     * @param {Component[]} children
+     * @returns {Img}
+     */
+    Img: (props) => new Img(props),
 
     /**
      * @param {Component.propsDef} props

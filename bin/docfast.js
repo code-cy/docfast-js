@@ -4,38 +4,31 @@ const yaml = require('js-yaml')
 const fs = require('fs-extra')
 const xmlComment = require('xml-comment-api');
 const command = require('meow')
-
+const {routerSource} = require('./libs/functions')
+const catchs = require('./libs/erros/catchs')
+const tools = require('./libs/tools')
 const cli = command(`
   Usage
-    $ markdown-js-template <source.yaml> <target> <tag-name?>
+    $ docfast-js <source.yaml> <target> <tag-name?>
   Examples
-    $ markdown-js-template ./api/swagger/swagger.yaml ./README.md  my-tag
+    $ docfast-js ./api/swagger/swagger.yaml ./README.md  my-tag
 `)
 
 const [source, target,tag] = cli.input
 
 
 Promise.resolve()
-  .then(() => readYamlFile(source))
+  .then(() => routerSource(source))
   .then((data) => template(data))
   .then((template) => updateMarkdownApi(template, target))
+  .then(tools)
+  .catch(catchs)
 
 
-function readYamlFile(source) {
-  return fs.readFile(source, 'utf-8')
-    .then((data) => yaml.safeLoad(data))
-    .catch((error) => {
-      if (error.code === 'ENOENT') {
-        throw new Error(`${source} doesn't exist`)
-      }
-
-      throw error;
-    })
-}
 
 function template(data) {
   return {
-    render: require(`./src/templates/${data.format}`)(data).render(),
+    render: require(`../src/templates/${data.format}`)(data).render(),
     data,
   }
 }
@@ -51,5 +44,11 @@ function updateMarkdownApi(template, target) {
         throw new Error(`${target} doesn't exist`)
       }
       throw error;
+    }).then(()=>{
+      return {
+        data: template.data,
+        source: source,
+        target,
+      }
     })
 }

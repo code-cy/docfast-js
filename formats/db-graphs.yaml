@@ -1,6 +1,15 @@
-format: db-graph
+#headers
+format: db-graphs
 version: 1.0.0
 
+#optional
+config:
+  #docfast-export --graphs
+  graphs:
+    folder: /export/db-graphs
+    #url: 'http://myrepo/master/examples'
+
+#document
 models:
   "User":
     props:
