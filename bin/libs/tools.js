@@ -12,7 +12,8 @@ module.exports = (d)=>{
             var tr = d.target.split('\\');
             var t = tr.slice(0,tr.length-1).join('\\')+"\\"+config.graphs.folder;              
             cmd.get(`node ./bin/docfast-export.js --graphs ${d.source} -f ${t}`,(err,data)=>{
-                  console.log(data);                              
+                if(err) throw err;
+                console.log(data);                              
             })
         }
     }
