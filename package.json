@@ -11,7 +11,7 @@
     "docfast-export": "./bin/docfast-export.js"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
+    "registry": "https://npm.pkg.github.com/@code-cy"
   },
   "repository": {
     "type": "git",
