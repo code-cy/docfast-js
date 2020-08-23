@@ -72,6 +72,8 @@ topics:
                   Components: https://github.com/code-cy/docfast-js/blob/master/src/libs/markdown-js-template/Readme.md  
   "API Documentation Example format: api-doc":
     off: true
+  "Ref-doc format example result:":
+    off: true
 
 
     

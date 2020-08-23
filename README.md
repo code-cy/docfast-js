@@ -23,6 +23,8 @@
 
    - [API Documentation Example format: api-doc](#api-documentation-example-format-api-doc)
 
+   - [Ref-doc format example result:](#ref-doc-format-example-result)
+
 
 - #  Install
    Has two ways to implements
@@ -240,8 +242,8 @@
 - ## Enums
    |Name|Namespace|Description|
    |----|----|----|
-   |[Enum1](#enum-packageenum1)|||**package**|description ...|
-   |[Enum2](#enum-packageclass1.enum2)|||**package.Class1**|description ...|
+   |[Enum1](#enum-packageenum1)|**package**|description ...|
+   |[Enum2](#enum-packageclass1.enum2)|**package.Class1**|description ...|
 
 
 - ## Functions
@@ -264,18 +266,19 @@
    **Extends:** [Class2](#class-class2)
    
    **Prefix:** **public** **static**
-   ```C#
-   using System;
-   using package.Class1;
-   
-   public class Main{
-       public static void Main(string[] args){
-           Class1 m = new Class1();
-           m.doSomething("wow");
-       }
-   }
-   
-   ```
+
+   - ### Usage
+      ```C#
+      using System;
+      using package.Class1;
+      
+      public class Main : Class1{
+          public static void Main(string[] args){
+              this.doSomething("wow");
+          }
+      }
+      
+      ```
    - ### Properties
       |Name|Type|Prefix|Description|
       |----|----|----|----|
@@ -284,7 +287,7 @@
    - ### Methods
       |Name|Params|Return|Prefix|Description|
       |----|----|----|----|----|
-      |doSomething|(**param**: string)|type|**protected** **static**|description ...|
+      |doSomething|(**param**: string)|void|**protected** **static**|description ...|
 
 
 - ### `class` Class2
@@ -295,7 +298,7 @@
    - ### Constructors
       |Name|Params|
       |----|----|
-      |Class2||
+      |Class2|
       |~~Class2~~|(**paramName**: string)|
 
    - ### Properties
@@ -307,7 +310,7 @@
    - ### Methods
       |Name|Params|Return|Prefix|Description|
       |----|----|----|----|----|
-      |doSomething|(**param**: string)|type|**protected** **static**|description ...|
+      |doSomething|(**param**: string)|void|**protected** **static**|description ...|
 
 
 <!-- /docfast-js-ref-doc -->

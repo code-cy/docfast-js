@@ -1,9 +1,8 @@
 using System;
 using package.Class1;
 
-public class Main{
+public class Main : Class1{
     public static void Main(string[] args){
-        Class1 m = new Class1();
-        m.doSomething("wow");
+        this.doSomething("wow");
     }
 }

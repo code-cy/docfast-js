@@ -124,7 +124,7 @@ module.exports = class Component {
                         c.addParent(this);
                         container += await this.renderPerChildren(await c.render(), i, c);
                     }
-                    if(typeof obj === 'string'){
+                    if(typeof obj === 'string' && obj){
                         container += this.renderPerChildren(obj, i, obj);
                     }
                 }                

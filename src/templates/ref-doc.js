@@ -158,8 +158,7 @@ module.exports = function (_s) {
                 if (typeof constr === 'string') {
                     constructors.addData({}, [name, '()'])
                 }else
-                if (constr instanceof Object) {
-                    console.log(constr);
+                if (constr instanceof Object) {                   
                     const params = functionParamsWithLinkType(constr)
                     constructors.addData({}, [decapritable(name, constr), params])
                 }  
@@ -185,7 +184,7 @@ module.exports = function (_s) {
                 return v;
             }).map(v => Link({ href: href('#class-' + v) }, v)).join(' '),Br()]) : null,
             P({},[B('Prefix:'),' ',BPrefix(clazz)]),
-            classCode?Code({lang:code.programming_language},classCode):null,
+            classCode?List({},[[Title({h:3},'Usage'),Code({lang:code.programming_language},classCode)]]):null,
             constructors.tbody.children.length ? List({}, [[Title({ h: 3 }, 'Constructors'), constructors]]) : null,
             props.tbody.children.length ? List({}, [[Title({ h: 3 }, 'Properties'), props]]) : null,
             methods.tbody.children.length ? List({}, [[Title({ h: 3 }, 'Methods'), methods]]) : null,

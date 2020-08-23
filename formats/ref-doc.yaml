@@ -105,10 +105,9 @@ objects:
       - "doSomething":
           params:
             "param": string
-          return: type
+          return: void
           prefix: protected static
           description: description ...
-          decapricated: false
-          usage: "code"
+          decapricated: false          
 
       
