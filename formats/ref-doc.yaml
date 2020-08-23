@@ -63,25 +63,12 @@ objects:
         props:
           "propName1":
             type: string
-            prefix: public
+            prefix: public static
             description: description ...        
             decapricated: false
           "propName2": type
-        constructor:
-          - params: empty
-          - params:
-              "paramName": string               
-            description: description ...
-            decapricated: false
-        methods:
-          - "doOtherThing":
-              params:
-                "paramName": type
-              return: type
-              prefix: public
-              description: description ...
-              decapricated: false
-              usage: "code"
+        
+        
   "Class2":
     type: class
     authors: [author1, author2]

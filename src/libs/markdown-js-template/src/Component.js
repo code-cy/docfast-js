@@ -103,27 +103,24 @@ module.exports = class Component {
             if (this.children instanceof Array) {
                 for (var i in this.children) {                   
                     var obj = this.children[i];
-                    if (obj instanceof Promise)
-                        obj = await obj;
+
                     if (obj instanceof Function) {
                         var d = obj();
-                        if (!d) break;
-                        if(d instanceof Promise) d = await d;
-                        if (d instanceof Component) {
-                            d.addParent(this);
-                            container += await this.renderPerChildren( await d.render(), i, d);
-                        }
-                        var c = this.base(d);
-                        c.addParent(this);
-                        container += await this.renderPerChildren(await c.render(), i, c);
+                        if (!d) break;                        
+                        obj = d;
                     }
-                    if (obj instanceof Component)
+                    
+                    if (obj instanceof Promise)
+                        obj = await obj;
+                    
+                    if (obj instanceof Component){
                         container += await this.renderPerChildren(await obj.render(), i, obj);
+                    }else                        
                     if (obj instanceof Array) {
                         var c = this.base(obj);
                         c.addParent(this);
                         container += await this.renderPerChildren(await c.render(), i, c);
-                    }
+                    }else
                     if(typeof obj === 'string' && obj){
                         container += this.renderPerChildren(obj, i, obj);
                     }
