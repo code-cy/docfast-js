@@ -240,6 +240,11 @@
 <!-- /docfast-js-api-doc -->
 <!-- docfast-js-ref-doc -->
 # Ref-doc format example result:
+**Description:** Example how to use **ref-doc** to documentation your scripts.
+
+**Version:** 1.0.0
+
+**Programming Languge:** **C#**
 
 - ## Enums
    |Name|Namespace|Description|
@@ -301,7 +306,7 @@
    - ### Constructors
       |Name|Params|
       |----|----|
-      |Class2|
+      |Class2|()|
       |~~Class2~~|(**paramName**: string)|
 
    - ### Properties

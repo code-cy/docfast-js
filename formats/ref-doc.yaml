@@ -5,6 +5,7 @@ lang: en
 
 code:
   title: "Ref-doc format example result:"
+  description: "Example how to use **ref-doc** to documentation your scripts."
   version: 1.0.0
   programming_language: C#
 

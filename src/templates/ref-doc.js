@@ -16,6 +16,7 @@ module.exports = function (_s) {
     const source_enums = {};
     const source_funs = {};
     const source_classes = {};
+    const source_interfaces = {};
 
     const find_objects = (objs, fun, namespace = "") => {
         Object.keys(objs).forEach((key) => {
@@ -65,7 +66,7 @@ module.exports = function (_s) {
             const target = goToRef(source, fun.params[p]);
             const link = target ? Link({ href: href(`#${target.type}-${fun.params[p]}`) }, fun.params[p]) : fun.params[p];
             return [B(p), link].join(': ')
-        }).join(', ') + ')' : '';
+        }).join(', ') + ')' : typeof fun.params === 'string'?'()':'';
     }
 
     const descriptableTable = (name, namespace, table, container, group, tag, tank, render) => {
@@ -158,10 +159,7 @@ module.exports = function (_s) {
         const constructors = Table({}, [lang.name, 'Params'])
 
         if (clazz.constructor instanceof Array && clazz.type === 'class' && (clazz.prefix.search('static') == -1)) {
-            clazz.constructor.forEach(constr => {
-                if (typeof constr === 'string') {
-                    constructors.addData({}, [name, '()'])
-                }else
+            clazz.constructor.forEach(constr => {                
                 if (constr instanceof Object) {                   
                     const params = functionParamsWithLinkType(constr)
                     constructors.addData({}, [decapritable(name, constr), params])
@@ -196,7 +194,11 @@ module.exports = function (_s) {
     }
 
     return Container({}, [
-        Title({}, code.title),
+        Title({}, code.title),        
+        code.description?P({},[B(`${lang.description}:`),' ',code.description, Br()]):null,
+        code.version?P({},[B('Version:'),' ',code.version, Br()]):null,
+        code.programming_language?P({},[B('Programming Languge:'),' ',B(code.programming_language)]):null,
+        code.install?P({}[B('Install:'),' ',code.install,Br()]):null,
 
         () => {
             const enums_table = Table({}, [lang.name, 'Namespace', lang.description], [])
@@ -207,6 +209,7 @@ module.exports = function (_s) {
                     let enums = obj.enums;
                     let funs = obj.functions;
                     let clazz = obj.type === 'class' ? obj : null;
+                    let interface = obj.type === 'interface' ? obj : null;
 
                     descriptableTable(name, namespace, enums_table, obj, enums, 'enum', source_enums, enumRender);
                     if (obj.type == 'namespace')
@@ -215,6 +218,12 @@ module.exports = function (_s) {
                         classes_table.addData({}, [Link({ href: href('#class-' + fnNamespace(namespace, name)) }, name), namespace != '' ? B(namespace) : ' ', clazz.description, BPrefix(clazz)])
                         source_classes[fnNamespace(namespace, name)] = () => {
                             return classRender(name, clazz, fnNamespace(namespace, name));
+                        };
+                    }
+                    if (interface) {
+                        classes_table.addData({}, [Link({ href: href('#interface-' + fnNamespace(namespace, name)) }, name), namespace != '' ? B(namespace) : ' ', interface.description, BPrefix(interface)])
+                        source_classes[fnNamespace(namespace, name)] = () => {
+                            return classRender(name, interface, fnNamespace(namespace, name));
                         };
                     }
                 }
