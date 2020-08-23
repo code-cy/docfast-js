@@ -35,17 +35,17 @@ module.exports = function (_s) {
         return obj.prefix ? obj.prefix.split(' ').map(v => B(v)).join(' ') : ' ';
     }
 
-    const decapritable = (name,obj)=>{
-        return obj.decapricated?`~~${name}~~`:name;
+    const decapritable = (name, obj) => {
+        return obj.decapricated ? `~~${name}~~` : name;
     }
 
-    const codeFile = async (code)=>{ 
-       if(code)     
-        return  await fs.readFile(code instanceof Object?code.file:code,'utf-8').then(data=>{            
-            return data;
-        }).catch(err=>{
-            console.log(err);
-        });
+    const codeFile = async (code) => {
+        if (code)
+            return await fs.readFile(code instanceof Object ? code.file : code, 'utf-8').then(data => {
+                return data;
+            }).catch(err => {
+                console.log(err);
+            });
     }
 
     const goToRef = (src, path) => {
@@ -66,7 +66,7 @@ module.exports = function (_s) {
             const target = goToRef(source, fun.params[p]);
             const link = target ? Link({ href: href(`#${target.type}-${fun.params[p]}`) }, fun.params[p]) : fun.params[p];
             return [B(p), link].join(': ')
-        }).join(', ') + ')' : typeof fun.params === 'string'?'()':'';
+        }).join(', ') + ')' : typeof fun.params === 'string' ? '()' : '';
     }
 
     const descriptableTable = (name, namespace, table, container, group, tag, tank, render) => {
@@ -83,7 +83,7 @@ module.exports = function (_s) {
                                 + (tag === 'function' ? hrefFunctionsParams(obj) : '')
                                 }`)
                         }
-                            , decapritable(names,obj)),
+                            , decapritable(names, obj)),
                         (tag === 'function' ? functionParamsWithLinkType(obj) : ''),
                         (tag === 'function' ? obj.return : ''),
                         B(fnNamespace(namespace, name)),
@@ -97,10 +97,10 @@ module.exports = function (_s) {
         }
     }
 
-    const validationsByPrefix = (clazz,extend, component)=>{
-        return (((!extend) || (extend && (component.prefix.search('public') > -1 || component.prefix.search('protecte') > -1))) && 
-        (extend ? (extend.prefix.search('static') > -1 && component.prefix.search('static') > -1) : true) && 
-        (!(clazz.prefix.search('static') > -1) || ((clazz.prefix.search('static') > -1) && component.prefix.search('static') > -1)));
+    const validationsByPrefix = (clazz, extend, component) => {
+        return (((!extend) || (extend && (component.prefix.search('public') > -1 || component.prefix.search('protecte') > -1))) &&
+            (extend ? (extend.prefix.search('static') > -1 && component.prefix.search('static') > -1) : true) &&
+            (!(clazz.prefix.search('static') > -1) || ((clazz.prefix.search('static') > -1) && component.prefix.search('static') > -1)));
     }
 
     const addProps = (clazz, props, extend = false) => {
@@ -112,14 +112,14 @@ module.exports = function (_s) {
                     if (extend ? extend.prefix.search('static') == -1 : true && clazz.prefix.search('static') == -1) {
                         let target = goToRef(source, prop);
                         link = target ? Link({ href: href(`#${target.type}-${prop}`) }, prop) : prop;
-                        props.addData({}, [decapritable(propName,prop), link, B('public'), ' '])
+                        props.addData({}, [decapritable(propName, prop), link, B('public'), ' '])
                     }
                 } else
                     if (prop instanceof Object) {
                         let target = goToRef(source, prop.type);
                         link = target ? Link({ href: href(`#${target.type}-${prop.type}`) }, prop.type) : prop.type;
-                        if (validationsByPrefix(clazz,extend,prop))
-                            props.addData({}, [decapritable(propName,prop), link, BPrefix(prop), prop.description])
+                        if (validationsByPrefix(clazz, extend, prop))
+                            props.addData({}, [decapritable(propName, prop), link, BPrefix(prop), prop.description])
                     }
             })
         }
@@ -134,8 +134,8 @@ module.exports = function (_s) {
                     const return_target = goToRef(source, method.return);
                     const return_link = return_target ? Link({ href: href(`#${return_target.type}-${method.return}`) }, method.return) : method.return;
                     const params = functionParamsWithLinkType(method);
-                    if (validationsByPrefix(clazz,extend,method))
-                        methods.addData({}, [decapritable(methodName,method), params, return_link, BPrefix(method), method.description])
+                    if (validationsByPrefix(clazz, extend, method))
+                        methods.addData({}, [decapritable(methodName, method), params, return_link, BPrefix(method), method.description])
                 }
             })
         }
@@ -149,9 +149,7 @@ module.exports = function (_s) {
 
     }
 
-    const funRender = (name, obj, namespace) => {
-
-    }
+    const funRender = (name, obj, namespace) => { }
 
     const classRender = async (name, clazz, namespace) => {
         const props = Table({}, [lang.name, lang.type, 'Prefix', lang.description])
@@ -159,18 +157,20 @@ module.exports = function (_s) {
         const constructors = Table({}, [lang.name, 'Params'])
 
         if (clazz.constructor instanceof Array && clazz.type === 'class' && (clazz.prefix.search('static') == -1)) {
-            clazz.constructor.forEach(constr => {                
-                if (constr instanceof Object) {                   
+            clazz.constructor.forEach(constr => {
+                if (constr instanceof Object) {
                     const params = functionParamsWithLinkType(constr)
                     constructors.addData({}, [decapritable(name, constr), params])
-                }  
+                }
 
             })
         }
 
         const extendsPaths = (extend) => {
-            addProps(extend, props, clazz);
-            addMethods(extend, methods, clazz);
+            if (extend instanceof Object) {
+                addProps(extend, props, clazz);
+                addMethods(extend, methods, clazz);
+            }
         }
 
         addProps(clazz, props);
@@ -180,13 +180,22 @@ module.exports = function (_s) {
 
         return List({}, [[
             Title({ h: 3 }, C(clazz.type) + ' ' + namespace),
-            P({}, [B(lang.description + ':') + ' ', clazz.description, Br()]),
+            clazz.description ? P({}, [B(lang.description + ':') + ' ', clazz.description, Br()]) : null,
             clazz.extends ? P({}, [B('Extends:') + ' ', Object.keys(clazz.extends).map(v => {
                 extendsPaths(goToRef(source, v))
                 return v;
-            }).map(v => Link({ href: href('#class-' + v) }, v)).join(' '),Br()]) : null,
-            P({},[B('Prefix:'),' ',BPrefix(clazz)]),
-            classCode?List({},[[Title({h:3},'Usage'),Code({lang:code.programming_language},classCode)]]):null,
+            }).map(v => Link({ href: href('#class-' + v) }, v)).join(' '), Br()]) : null,
+            clazz.extends ? P({}, [B('Implements:') + ' ', Object.keys(clazz.implements).map(v => {
+                var target = goToRef(source, v);                
+                if(target)
+                return {
+                    target: target,
+                    name: v,
+                };
+                return v;
+            }).map(t => t instanceof Object?Link({ href: href(`#$${t.target.type}-` + t.name) }, t.name):t).join(' '), Br()]) : null,
+            P({}, [B('Prefix:'), ' ', BPrefix(clazz)]),
+            classCode ? List({}, [[Title({ h: 3 }, 'Usage'), Code({ lang: code.programming_language }, classCode)]]) : null,
             constructors.tbody.children.length ? List({}, [[Title({ h: 3 }, 'Constructors'), constructors]]) : null,
             props.tbody.children.length ? List({}, [[Title({ h: 3 }, 'Properties'), props]]) : null,
             methods.tbody.children.length ? List({}, [[Title({ h: 3 }, 'Methods'), methods]]) : null,
@@ -194,16 +203,17 @@ module.exports = function (_s) {
     }
 
     return Container({}, [
-        Title({}, code.title),        
-        code.description?P({},[B(`${lang.description}:`),' ',code.description, Br()]):null,
-        code.version?P({},[B('Version:'),' ',code.version, Br()]):null,
-        code.programming_language?P({},[B('Programming Languge:'),' ',B(code.programming_language)]):null,
-        code.install?P({}[B('Install:'),' ',code.install,Br()]):null,
+        Title({}, code.title),
+        code.description ? P({}, [B(`${lang.description}:`), ' ', code.description, Br()]) : null,
+        code.version ? P({}, [B('Version:'), ' ', code.version, Br()]) : null,
+        code.programming_language ? P({}, [B('Programming Languge:'), ' ', B(code.programming_language)]) : null,
+        code.install ? P({}[B('Install:'), ' ', code.install, Br()]) : null,
 
         () => {
             const enums_table = Table({}, [lang.name, 'Namespace', lang.description], [])
             const funs_table = Table({}, [lang.name, 'Params', 'Return', 'Namespace', lang.description], [])
             const classes_table = Table({}, [lang.name, 'Namespace', lang.description, 'Prefix'], [])
+            const interfaces_table = Table({}, [lang.name, 'Namespace', lang.description, 'Prefix'], [])
             find_objects(source.objects, (name, obj, namespace) => {
                 if (obj instanceof Object) {
                     let enums = obj.enums;
@@ -215,27 +225,30 @@ module.exports = function (_s) {
                     if (obj.type == 'namespace')
                         descriptableTable(name, namespace, funs_table, obj, funs, 'function', source_funs, funRender);
                     if (clazz) {
-                        classes_table.addData({}, [Link({ href: href('#class-' + fnNamespace(namespace, name)) }, name), namespace != '' ? B(namespace) : ' ', clazz.description, BPrefix(clazz)])
+                        classes_table.addData({}, [Link({ href: href('#class-' + fnNamespace(namespace, name)) }, name), namespace != '' ? B(namespace) : ' ', clazz.description ? clazz.description : ' ', BPrefix(clazz)])
                         source_classes[fnNamespace(namespace, name)] = () => {
                             return classRender(name, clazz, fnNamespace(namespace, name));
                         };
                     }
                     if (interface) {
-                        classes_table.addData({}, [Link({ href: href('#interface-' + fnNamespace(namespace, name)) }, name), namespace != '' ? B(namespace) : ' ', interface.description, BPrefix(interface)])
-                        source_classes[fnNamespace(namespace, name)] = () => {
+                        interfaces_table.addData({}, [Link({ href: href('#interface-' + fnNamespace(namespace, name)) }, name), namespace != '' ? B(namespace) : ' ', interface.description ? interface.description : ' ', BPrefix(interface)])
+                        source_interfaces[fnNamespace(namespace, name)] = () => {
                             return classRender(name, interface, fnNamespace(namespace, name));
                         };
                     }
                 }
             });
-            const enum_cont = Object.keys(source_enums).length ? List({}, [[Title({ h: 2 }, 'Enums'), enums_table]]) : null;
-            const fun_cont = Object.keys(source_funs).length ? List({}, [[Title({ h: 2 }, 'Functions'), funs_table]]) : null
-            const classes_cont = Object.keys(source_classes).length ? List({}, [[Title({ h: 2 }, 'Classes'), classes_table]]) : null
+            const enum_cont = enums_table.tbody.children.length ? List({}, [[Title({ h: 2 }, 'Enums'), enums_table]]) : null;
+            const fun_cont = funs_table.tbody.children.length ? List({}, [[Title({ h: 2 }, 'Functions'), funs_table]]) : null
+            const classes_cont = classes_table.tbody.children.length ? List({}, [[Title({ h: 2 }, 'Classes'), classes_table]]) : null
+            const interfaces_cont = interfaces_table.tbody.children.length ? List({}, [[Title({ h: 2 }, 'Interfaces'), interfaces_table]]) : null
             return [
                 enum_cont,
                 fun_cont,
                 classes_cont,
-                Object.values(source_classes)
+                interfaces_cont,
+                Object.values(source_classes),
+                Object.values(source_interfaces),
             ]
 
         }

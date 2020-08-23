@@ -50,10 +50,7 @@ objects:
           "Class2":
             generics: [T]
         implements:
-          - "namespace.interface1"
-          - "namespace.interface2"
-          - "namespace.interface3":
-              generics: [T, K]
+          "Interface1":          
         enums:
           "Enum2":
             description: description ...            
@@ -97,6 +94,15 @@ objects:
           return: void
           prefix: protected static
           description: description ...
-          decapricated: false          
+          decapricated: false
+  "Interface1": 
+    type: interface
+    prefix: public
+    methods:
+      - "doSomething":
+          params:
+            "param": string
+          return: void
+          prefix: public         
 
       

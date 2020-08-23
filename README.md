@@ -267,10 +267,18 @@
    |[Class2](#class-class2)| |description ...|**public**|
 
 
+- ## Interfaces
+   |Name|Namespace|Description|Prefix|
+   |----|----|----|----|
+   |[Interface1](#interface-interface1)| | |**public**|
+
+
 - ### `class` package.Class1
    **Description:** description ...
    
    **Extends:** [Class2](#class-class2)
+   
+   **Implements:** [Interface1](#$interface-interface1)
    
    **Prefix:** **public** **static**
 
@@ -319,6 +327,15 @@
       |Name|Params|Return|Prefix|Description|
       |----|----|----|----|----|
       |doSomething|(**param**: string)|void|**protected** **static**|description ...|
+
+
+- ### `interface` Interface1
+   **Prefix:** **public**
+
+   - ### Methods
+      |Name|Params|Return|Prefix|Description|
+      |----|----|----|----|----|
+      |doSomething|(**param**: string)|void|**public**|
 
 
 <!-- /docfast-js-ref-doc -->
