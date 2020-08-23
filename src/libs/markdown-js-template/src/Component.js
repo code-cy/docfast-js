@@ -2,12 +2,12 @@
  * @module Component
  */
 /** Class Component */
-module.exports = class Component{
+module.exports = class Component {
 
-    
+
     static propsDef = {
         tabs: 0,
-        h: 1,        
+        h: 1,
         lang: "",
         href: '',
         src: '',
@@ -17,29 +17,27 @@ module.exports = class Component{
      * @param {Component[]} children
      *  
      */
-    constructor(props,children = []){
-        this.children=children;
+    constructor(props, children = []) {
+        this.children = children;
         this.props = props;
         //defaul props
-        this.props.tabs = props.tabs?props.tabs:0;
-        this.props.h = props.h?props.h:1;        
-        this.props.lang = props.lang?props.lang:"";
-        this.props.href = props.href?props.href:"";
+        this.props.tabs = props.tabs ? props.tabs : 0;
+        this.props.h = props.h ? props.h : 1;
+        this.props.lang = props.lang ? props.lang : "";
+        this.props.href = props.href ? props.href : "";
         this.parent = null;
-        if((typeof children==='object')){
-            if(typeof children.forEach=== 'function')
-                children.forEach(i=>{
-                    if(i instanceof Component){
-                        i.addParent(this);
-                    }                    
-                });
-        }        
+        if (children instanceof Array)
+            children.forEach(i => {
+                if (i instanceof Component) {
+                    i.addParent(this);
+                }
+            });
     }
 
-    addChild(child){
-        if(child){
-            if(child instanceof Array)
-                child.forEach(i=>{
+    addChild(child) {
+        if (child) {
+            if (child instanceof Array)
+                child.forEach(i => {
                     this.children.push(i);
                 })
             else
@@ -47,17 +45,17 @@ module.exports = class Component{
         }
     }
 
-    addParent(parent){
-        this.parent = parent;        
+    addParent(parent) {
+        this.parent = parent;
     }
 
     /**
      * @returns {string}
      */
-    toString(){
-        if(typeof this.children === 'object')
-            return "";        
-        return `${this.children}`;        
+    toString() {
+        if (this.children instanceof Object)
+            return "";
+        return `${this.children}`;
     }
 
     /**
@@ -66,73 +64,81 @@ module.exports = class Component{
      * @param {number} key
      * @returns {string}
      */
-    renderPerChildren(child,key,item){
+    renderPerChildren(child, key, item) {
         return child;
     }
 
     /**
      * @returns {string}
      */
-    renderEnd(){
+    renderEnd() {
         return "";
     }
 
-    tabs(){
-        let sub="";
-        for(let i=1;i<=this.props.tabs;i++){
-            sub+='   ';
+    tabs() {
+        let sub = "";
+        for (let i = 1; i <= this.props.tabs; i++) {
+            sub += '   ';
         }
         return sub;
     }
 
-    newElement(){
+    newElement() {
         return this.tabs();
     }
 
-    endElement(){
+    endElement() {
         return "\n";
     }
-    /**
-     * @return {string}
-     */
-    render(){     
-        if(this.parent instanceof Component)
-            this.props.tabs += this.parent.props.tabs;  
-        var d="";
-        if(!(typeof this.children === 'string')){
-            if(typeof this.children.map === 'function')
-                d = this.children.map((i,k)=>{
-                    if(!i) return "";
-                    if(typeof i === 'function'){
-                        var d = i();
-                        if(!d)return "";
-                        if(d instanceof Component) {
+
+
+    async render() {
+        if (this.parent instanceof Component)
+            this.props.tabs += this.parent.props.tabs;
+        var container = "";
+        if (!(typeof this.children === 'string')) {
+            if(this.children instanceof Promise){
+                this.children = await this.children;
+            }
+            if (this.children instanceof Array) {
+                for (var i in this.children) {                   
+                    var obj = this.children[i];
+                    if (obj instanceof Promise)
+                        obj = await obj;
+                    if (obj instanceof Function) {
+                        var d = obj();
+                        if (!d) break;
+                        if(d instanceof Promise) d = await d;
+                        if (d instanceof Component) {
                             d.addParent(this);
-                            return this.renderPerChildren(d.render(),k,d);  
-                        }                 
+                            container += await this.renderPerChildren( await d.render(), i, d);
+                        }
                         var c = this.base(d);
-                        c.addParent(this);                                                                  
-                        return this.renderPerChildren(c.render(),k,c);                                           
+                        c.addParent(this);
+                        container += await this.renderPerChildren(await c.render(), i, c);
                     }
-                    if(i instanceof Component)            
-                        return this.renderPerChildren(i.render(),k,i);                    
-                    if(typeof i.map === 'function'){
-                        var c = this.base(i);
-                        c.addParent(this);                                                                  
-                        return this.renderPerChildren(c.render(),k,c);
-                    }                                    
-                    return this.renderPerChildren(i,k,i);   
-                }).join(''); 
-        }        
-        return this.toString()+d+this.renderEnd();
+                    if (obj instanceof Component)
+                        container += await this.renderPerChildren(await obj.render(), i, obj);
+                    if (obj instanceof Array) {
+                        var c = this.base(obj);
+                        c.addParent(this);
+                        container += await this.renderPerChildren(await c.render(), i, c);
+                    }
+                    if(typeof obj === 'string'){
+                        container += this.renderPerChildren(obj, i, obj);
+                    }
+                }                
+            }
+        }
+        return this.toString() + container + this.renderEnd();
     }
 
-    base(child){
-        return new Component({},child);
-    }
+    base(child) {
+        return new Component({}, child);
+    }    
 
-    typer(){
-        
+    typer() {
+
     }
 }
 

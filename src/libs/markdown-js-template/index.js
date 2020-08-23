@@ -286,7 +286,7 @@ class Code extends Base {
     } 
     toString() {
         if (this.props.style || this.htmlMode)
-            return super.toString();
+            return super.toString();        
         return this.newElement() + "```" + this.props.lang + this.endElement() +
             this.children.split('\n').map(i => this.newElement() + i).join(this.endElement()) + this.endElement()
             + this.newElement() + "```";

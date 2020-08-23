@@ -1,0 +1,114 @@
+#headers
+format: ref-doc
+version: 1.0.0
+lang: en
+
+code:
+  title: "Ref-doc format example result:"
+  version: 1.0.0
+  programming_language: C#
+
+objects:
+  "package":
+    type: namespace
+    functions:
+      - "functionName":
+          description: ...
+          params:
+            "str": string
+          return: type
+          decapricated: false
+      - "functionName":
+          description: ...
+          params:
+            "param1": package.Class1
+            "param2": number
+          return: type
+          decapricated: true
+    enums:
+      "Enum1":
+        description: description ...
+        decapricated: false
+        values:
+          - "enumData"
+          - "enumData2"
+          - "enumData3":
+              decapricated: false    
+    objects:
+      "Class1":
+        type: class
+        authors: [author1, author2]
+        decapricated: false        
+        description: description ...
+        generics: [T, K]
+        prefix: public static
+        usage: 
+          file: ./formats/assets/ref-doc/example.cs    
+        extends:          
+          "Class2":
+            generics: [T]
+        implements:
+          - "namespace.interface1"
+          - "namespace.interface2"
+          - "namespace.interface3":
+              generics: [T, K]
+        enums:
+          "Enum2":
+            description: description ...            
+            values:
+              - "enumData"
+              - "enumData2"
+              - "enumData3":
+                  decapricated: false        
+        props:
+          "propName1":
+            type: string
+            prefix: public
+            description: description ...        
+            decapricated: false
+          "propName2": type
+        constructor:
+          - params: empty
+          - params:
+              "paramName": string               
+            description: description ...
+            decapricated: false
+        methods:
+          - "doOtherThing":
+              params:
+                "paramName": type
+              return: type
+              prefix: public
+              description: description ...
+              decapricated: false
+              usage: "code"
+  "Class2":
+    type: class
+    authors: [author1, author2]
+    decapricated: false        
+    description: description ...
+    generics: [T]
+    prefix: public           
+    props:
+      "propName3":
+        type: string
+        prefix: public static
+        description: description ...       
+        decapricated: true
+      "propName4": Class2
+    constructor:
+      - params: empty
+      - params:
+          "paramName": string            
+        decapricated: true
+    methods:
+      - "doSomething":
+          params:
+            "param": string
+          return: type
+          prefix: protected static
+          description: description ...
+          decapricated: false
+          usage: "code"
+
+      
