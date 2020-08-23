@@ -105,11 +105,10 @@ module.exports = class Component {
                     var obj = this.children[i];
 
                     if (obj instanceof Function) {
-                        var d = obj();
-                        if (!d) break;                        
-                        obj = d;
+                        obj = obj();
+                        if (!obj) break;
                     }
-                    
+
                     if (obj instanceof Promise)
                         obj = await obj;
                     

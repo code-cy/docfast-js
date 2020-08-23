@@ -461,7 +461,7 @@ module.exports = {
     /**
      * @param {Component.propsDef} props
      * @param {Component[]} children
-     * @returns {LiList}
+     * @returns {List}
      */
     List: (props, children) => new List(props, children),
 
