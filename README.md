@@ -49,6 +49,8 @@
  
             - [topics](https://github.com/code-cy/docfast-js/blob/master/formats/topics.yaml)
  
+            - [ref-doc](https://github.com/code-cy/docfast-js/blob/master/formats/ref-doc.yaml)
+ 
       - ###  Targets
          
 
