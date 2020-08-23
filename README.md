@@ -23,6 +23,8 @@
 
    - [API Documentation Example format: api-doc](#api-documentation-example-format-api-doc)
 
+   - [Ref-doc format example result:](#ref-doc-format-example-result)
+
 
 - #  Install
    Has two ways to implements
@@ -46,6 +48,8 @@
             - [api-doc](https://github.com/code-cy/docfast-js/blob/master/formats/api-doc.yaml)
  
             - [topics](https://github.com/code-cy/docfast-js/blob/master/formats/topics.yaml)
+ 
+            - [ref-doc](https://github.com/code-cy/docfast-js/blob/master/formats/ref-doc.yaml)
  
       - ###  Targets
          
@@ -234,5 +238,81 @@
 
 
 <!-- /docfast-js-api-doc -->
+<!-- docfast-js-ref-doc -->
+# Ref-doc format example result:
+
+- ## Enums
+   |Name|Namespace|Description|
+   |----|----|----|
+   |[Enum1](#enum-packageenum1)|**package**|description ...|
+   |[Enum2](#enum-packageclass1.enum2)|**package.Class1**|description ...|
 
 
+- ## Functions
+   |Name|Params|Return|Namespace|Description|
+   |----|----|----|----|----|
+   |[functionName](#function-packagefunctionnamestr)|(**str**: string)|type|**package**|...|
+   |[~~functionName~~](#function-packagefunctionnameparam1param2)|(**param1**: [package.Class1](#class-packageclass1), **param2**: number)|type|**package**|...|
+
+
+- ## Classes
+   |Name|Namespace|Description|Prefix|
+   |----|----|----|----|
+   |[Class1](#class-packageclass1)|**package**|description ...|**public** **static**|
+   |[Class2](#class-class2)| |description ...|**public**|
+
+
+- ### `class` package.Class1
+   **Description:** description ...
+   
+   **Extends:** [Class2](#class-class2)
+   
+   **Prefix:** **public** **static**
+
+   - ### Usage
+      ```C#
+      using System;
+      using package.Class1;
+      
+      public class Main : Class1{
+          public static void Main(string[] args){
+              this.doSomething("wow");
+          }
+      }
+      
+      ```
+   - ### Properties
+      |Name|Type|Prefix|Description|
+      |----|----|----|----|
+      |~~propName3~~|string|**public** **static**|description ...|
+
+   - ### Methods
+      |Name|Params|Return|Prefix|Description|
+      |----|----|----|----|----|
+      |doSomething|(**param**: string)|void|**protected** **static**|description ...|
+
+
+- ### `class` Class2
+   **Description:** description ...
+   
+   **Prefix:** **public**
+
+   - ### Constructors
+      |Name|Params|
+      |----|----|
+      |Class2|
+      |~~Class2~~|(**paramName**: string)|
+
+   - ### Properties
+      |Name|Type|Prefix|Description|
+      |----|----|----|----|
+      |~~propName3~~|string|**public** **static**|description ...|
+      |propName4|[Class2](#class-class2)|**public**| |
+
+   - ### Methods
+      |Name|Params|Return|Prefix|Description|
+      |----|----|----|----|----|
+      |doSomething|(**param**: string)|void|**protected** **static**|description ...|
+
+
+<!-- /docfast-js-ref-doc -->
