@@ -42,7 +42,8 @@ objects:
         description: description ...
         generics: [T, K]
         prefix: public static
-        usage: 
+        usage:
+          # is relative to command line path 
           file: ./formats/assets/ref-doc/example.cs    
         extends:          
           "Class2":

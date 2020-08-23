@@ -276,7 +276,7 @@
       
       public class Main : Class1{
           public static void Main(string[] args){
-              this.doSomething("wow");
+              Main.doSomething("wow");
           }
       }
       
@@ -284,6 +284,7 @@
    - ### Properties
       |Name|Type|Prefix|Description|
       |----|----|----|----|
+      |propName1|string|**public** **static**|description ...|
       |~~propName3~~|string|**public** **static**|description ...|
 
    - ### Methods

@@ -96,7 +96,11 @@ module.exports = function (_s) {
         }
     }
 
-
+    const validationsByPrefix = (clazz,extend, component)=>{
+        return (((!extend) || (extend && (component.prefix.search('public') > -1 || component.prefix.search('protecte') > -1))) && 
+        (extend ? (extend.prefix.search('static') > -1 && component.prefix.search('static') > -1) : true) && 
+        (!(clazz.prefix.search('static') > -1) || ((clazz.prefix.search('static') > -1) && component.prefix.search('static') > -1)));
+    }
 
     const addProps = (clazz, props, extend = false) => {
         if (clazz.props instanceof Object) {
@@ -113,7 +117,7 @@ module.exports = function (_s) {
                     if (prop instanceof Object) {
                         let target = goToRef(source, prop.type);
                         link = target ? Link({ href: href(`#${target.type}-${prop.type}`) }, prop.type) : prop.type;
-                        if (((!extend) || (extend && (prop.prefix.search('public') > -1 || prop.prefix.search('protecte') > -1))) && (extend ? (extend.prefix.search('static') > -1 && prop.prefix.search('static') > -1) : true) && (!(clazz.prefix.search('static') > -1) && prop.prefix.search('static') > -1))
+                        if (validationsByPrefix(clazz,extend,prop))
                             props.addData({}, [decapritable(propName,prop), link, BPrefix(prop), prop.description])
                     }
             })
@@ -129,7 +133,7 @@ module.exports = function (_s) {
                     const return_target = goToRef(source, method.return);
                     const return_link = return_target ? Link({ href: href(`#${return_target.type}-${method.return}`) }, method.return) : method.return;
                     const params = functionParamsWithLinkType(method);
-                    if (((!extend) || (extend && (method.prefix.search('public') > -1 || method.prefix.search('protecte') > -1))) && (extend ? (extend.prefix.search('static') > -1 && method.prefix.search('static') > -1) : true) && (!(clazz.prefix.search('static') > -1) && method.prefix.search('static') > -1))
+                    if (validationsByPrefix(clazz,extend,method))
                         methods.addData({}, [decapritable(methodName,method), params, return_link, BPrefix(method), method.description])
                 }
             })
