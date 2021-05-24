@@ -66,7 +66,7 @@ module.exports = function (api) {
                     })
                 })
 
-                return tableTag;
+                return [tableTag];
             },
         ])),
         () => List({}, [
@@ -83,8 +83,10 @@ module.exports = function (api) {
                                     //route
                                     Title({ h: 5 }, [C(method), " ", path]),
                                     P({}, [
-                                        route.description ? [B(`${lang.description}:'`), " ", route.description, Br] : null,
-                                        B(lang.tags + ':'), route.tags.map(tag => [" ", Link({ href: hrefDocumentation(tag) }, tag)]),
+                                        [
+                                            route.description ? [B(`${lang.description}:`), " ", route.description, Br] : null,
+                                            B(lang.tags + ':'), route.tags.map(tag => [" ", Link({ href: hrefDocumentation(tag) }, tag)]),
+                                        ]
                                     ]),
 
                                     route.request ? List({}, [
@@ -98,7 +100,7 @@ module.exports = function (api) {
                                                         var tableHeader = Table({}, [lang.name, lang.type]);
                                                         Object.keys(route.request.headers).sort()
                                                             .forEach(header => tableHeader.addData({}, [B(header), L(route.request.headers[header])]))
-                                                        return tableHeader;
+                                                        return [tableHeader];
                                                     },
                                                 ] : null,
                                                 route.request.data ? [
@@ -117,7 +119,7 @@ module.exports = function (api) {
                                                                     itemData.rules,
                                                                 ])
                                                             })
-                                                        return table;
+                                                        return [table];
                                                     },
 
                                                 ] : null,
@@ -203,7 +205,7 @@ module.exports = function (api) {
                                             if (prop) {
                                                 if (prop.type === 'object')
                                                     content.push(List({}, [objectProp(propName, prop, deep + 1)]));
-                                                 table.addData({}, [B(propName), L(prop.type), prop.description || " "]);
+                                                table.addData({}, [B(propName), L(prop.type), prop.description || " "]);
                                             }
                                         })
 

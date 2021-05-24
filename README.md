@@ -101,8 +101,8 @@
 - ## Rutas
 
    - ##### `post` /auth/register
-      **Descripción:'** Registrar nuevo usuario.
-      **Tags:** [User](#user) [API](#api)
+      **Descripción:** Registrar nuevo usuario.
+**Tags:** [User](#user) [API](#api)
 
       - **Parámetros**
 
@@ -131,8 +131,8 @@
          - `401` `API_KEY` no es valida.
 
    - ##### `post` /auth/login
-      **Descripción:'** Iniciar sesion como Usuario.
-      **Tags:** [User](#user) [API](#api)
+      **Descripción:** Iniciar sesion como Usuario.
+**Tags:** [User](#user) [API](#api)
 
       - **Parámetros**
 
@@ -163,8 +163,8 @@
          - `401` `API_KEY` no es valida.
 
    - ##### `get` /user
-      **Descripción:'** Obtener informacion del usuario y la compañia.
-      **Tags:** [User](#user) [API](#api)
+      **Descripción:** Obtener informacion del usuario y la compañia.
+**Tags:** [User](#user) [API](#api)
 
       - **Parámetros**
 
@@ -189,52 +189,53 @@
 
 - ## Modelos
 
-   - ### UserStoreResponse
+- ### UserStoreResponse
+   **Tipo:** *object*
+   |Nombre|Tipo|Descripción|
+   |----|----|----|
+   |**token**|*string*| |
+
+- ### UserLoginResponse
+   **Tipo:** *object*
+   |Nombre|Tipo|Descripción|
+   |----|----|----|
+   |**user**|*object*| |
+   |**token**|*string*| |
+
+   - ### user
       **Tipo:** *object*
       |Nombre|Tipo|Descripción|
       |----|----|----|
-      |**token**|*string*| |
+      |**id**|*number*| |
+      |**email**|*string*| |
+      |**create_at**|*string*| |
 
-   - ### UserLoginResponse
+- ### InvalidResponse
+   **Tipo:** *object*
+   |Nombre|Tipo|Descripción|
+   |----|----|----|
+   |**message**|*string*| |
+   |**errors**|*object*| |
+
+   - ### errors
       **Tipo:** *object*
       |Nombre|Tipo|Descripción|
       |----|----|----|
-      |**user**|*object*| |
-      |**token**|*string*| |
+      |**mail**|*string*| |
+      |**password**|*string*| |
+      |**passwordConfirmed**|*string*| |
 
-      - ### user
-         **Tipo:** *object*
-         |Nombre|Tipo|Descripción|
-         |----|----|----|
-         |**id**|*number*| |
-         |**email**|*string*| |
-         |**create_at**|*string*| |
+- ### Unauthorizate
+   **Tipo:** *object*
+   |Nombre|Tipo|Descripción|
+   |----|----|----|
+   |**message**|*string*| |
 
-   - ### InvalidResponse
-      **Tipo:** *object*
-      |Nombre|Tipo|Descripción|
-      |----|----|----|
-      |**message**|*string*| |
-      |**errors**|*object*| |
+- ### Data
+**Tipo:** *enum*
+**Datos:**  *XK*, *YX*, *ZX*
 
-      - ### errors
-         **Tipo:** *object*
-         |Nombre|Tipo|Descripción|
-         |----|----|----|
-         |**mail**|*string*| |
-         |**password**|*string*| |
-         |**passwordConfirmed**|*string*| |
 
-   - ### Unauthorizate
-      **Tipo:** *object*
-      |Nombre|Tipo|Descripción|
-      |----|----|----|
-      |**message**|*string*| |
-
-   - ### Data
-      **Tipo:** *enum*
-      **Datos:**  *XK*, *YX*, *ZX*
-      
 
 
 <!-- /docfast-js-api-doc -->

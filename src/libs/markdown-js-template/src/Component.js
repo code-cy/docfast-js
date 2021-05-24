@@ -95,6 +95,7 @@ module.exports = class Component {
     async render() {
         if (this.parent instanceof Component)
             this.props.tabs += this.parent.props.tabs;
+           
         var container = "";
         if (!(typeof this.children === 'string')) {
             if(this.children instanceof Promise){

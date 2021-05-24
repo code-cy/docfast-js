@@ -256,7 +256,7 @@ class List extends Base {
     htmlNode(){
         return "ul"
     } 
-    renderPerChildren(child, k, item) {
+    renderPerChildren(child, k, item) {        
         if (this.props.style || this.htmlMode)
             return `<li>\n\n${child}</li>\n\n`;
         return this.endElement() + this.newElement() + `- ${child}`;
@@ -266,7 +266,7 @@ class List extends Base {
         if (this.props.style || this.htmlMode)
             return super.renderEnd();
         return (this.props.tabs == 0) ? this.endElement() : "";
-    }
+    }   
 }
 
 class Br extends Base {
